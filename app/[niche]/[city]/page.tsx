@@ -17,15 +17,19 @@ import { Metadata } from 'next';
 export async function generateMetadata({ params }: { params: Promise<{ niche: string; city: string }> }): Promise<Metadata> {
   const resolvedParams = await params;
   
-  const rawNiche = resolvedParams.niche.toLowerCase().replace(/-leads$/, '').replace(/-/g, ' ');
-  const formattedNiche = rawNiche.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+  let decodedNiche = decodeURIComponent(resolvedParams.niche || "");
+  const rawNiche = decodedNiche.toLowerCase().replace(/-leads$/, '').replace(/-/g, ' ').replace(/[^a-z0-9 ]/g, '').trim();
+  const formattedNiche = rawNiche.split(' ').filter(Boolean).map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
 
-  const cityParts = resolvedParams.city.split('-');
+  let decodedCity = decodeURIComponent(resolvedParams.city || "");
+  decodedCity = decodedCity.toLowerCase().replace(/[^a-z0-9-]/g, '').replace(/-+/g, '-').replace(/^-|-$/g, '');
+  const cityParts = decodedCity.split('-');
+  
   let stateAbbr = "";
   if (cityParts.length > 1 && cityParts[cityParts.length - 1].length === 2) {
     stateAbbr = cityParts.pop()?.toUpperCase() || "";
   }
-  const cityName = cityParts.map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+  const cityName = cityParts.filter(Boolean).map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
   const formattedLocation = stateAbbr ? `${cityName}, ${stateAbbr}` : cityName;
 
   return {
@@ -39,17 +43,19 @@ export async function generateMetadata({ params }: { params: Promise<{ niche: st
 export default async function CityPage({ params }: { params: Promise<{ niche: string; city: string }> }) {
   const resolvedParams = await params;
   
-  // Format niche (e.g. "commercial-cleaning-leads" -> "Commercial Cleaning")
-  const rawNiche = resolvedParams.niche.toLowerCase().replace(/-leads$/, '').replace(/-/g, ' ');
-  const formattedNiche = rawNiche.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+  let decodedNiche = decodeURIComponent(resolvedParams.niche || "");
+  const rawNiche = decodedNiche.toLowerCase().replace(/-leads$/, '').replace(/-/g, ' ').replace(/[^a-z0-9 ]/g, '').trim();
+  const formattedNiche = rawNiche.split(' ').filter(Boolean).map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
 
-  // Format city (e.g. "jacksonville-fl" -> "Jacksonville, FL")
-  const cityParts = resolvedParams.city.split('-');
+  let decodedCity = decodeURIComponent(resolvedParams.city || "");
+  decodedCity = decodedCity.toLowerCase().replace(/[^a-z0-9-]/g, '').replace(/-+/g, '-').replace(/^-|-$/g, '');
+  const cityParts = decodedCity.split('-');
+  
   let stateAbbr = "";
   if (cityParts.length > 1 && cityParts[cityParts.length - 1].length === 2) {
     stateAbbr = cityParts.pop()?.toUpperCase() || "";
   }
-  const cityName = cityParts.map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+  const cityName = cityParts.filter(Boolean).map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
   const formattedLocation = stateAbbr ? `${cityName}, ${stateAbbr}` : cityName;
 
   return (
