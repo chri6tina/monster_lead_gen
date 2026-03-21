@@ -11,7 +11,8 @@ import {
   UserCheck
 } from "lucide-react";
 import { PricingSection } from "@/components/PricingSection";
-
+import fs from 'fs/promises';
+import path from 'path';
 import { Metadata } from 'next';
 
 export async function generateMetadata({ params }: { params: Promise<{ niche: string; city: string }> }): Promise<Metadata> {
@@ -58,6 +59,25 @@ export default async function CityPage({ params }: { params: Promise<{ niche: st
   const cityName = cityParts.filter(Boolean).map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
   const formattedLocation = stateAbbr ? `${cityName}, ${stateAbbr}` : cityName;
 
+  // ==== AGENT DATA INGESTION HOOK ====
+  // Future AI Agents (like the Cleaning Company Agent Manager) will write their heavily researched 
+  // content into JSON files structured like: /data/commercial-cleaning-leads/jacksonville-fl.json
+  // If the file exists, the template uses it. If not, it gracefully degrades to the optimized universal SEO template.
+  let agentData: any = null;
+  try {
+    const dataPath = path.join(process.cwd(), 'data', resolvedParams.niche, `${resolvedParams.city}.json`);
+    const fileContents = await fs.readFile(dataPath, 'utf-8');
+    agentData = JSON.parse(fileContents);
+  } catch (err) {
+    // No custom agent data generated yet for this specific city/niche combo
+  }
+
+  // SEO Optimized Fallbacks (Long-Tail Focus)
+  const heroHeadline = agentData?.heroHeadline || `Dominate The ${formattedLocation} ${formattedNiche} Market.`;
+  const heroSub = agentData?.heroSub || `Buy verified ${formattedNiche.toLowerCase()} leads in ${formattedLocation}. Access direct emails, cell phones, and facility decision-makers instantly to secure top-tier commercial contracts without wasting ad spend.`;
+  const infoHeading = agentData?.infoHeading || `Why Buy Exclusive ${formattedLocation} ${formattedNiche} Leads?`;
+  const infoParagraph = agentData?.infoParagraph || `Scaling a ${formattedNiche.toLowerCase()} business in ${cityName} requires speed and direct access. Stop paying for shared, low-converting homeowner leads. Purchase a static, manually-verified database of ${formattedLocation} B2B prospects and own your outreach pipeline forever.`;
+
   return (
     <div className="min-h-screen bg-zinc-950 font-sans text-zinc-50 flex flex-col pt-20 selection:bg-emerald-500/30">
       {/* Navbar - Sticky at top */}
@@ -97,11 +117,17 @@ export default async function CityPage({ params }: { params: Promise<{ niche: st
               <MapPin className="h-4 w-4" /> Exclusive {formattedLocation} Territory
             </div>
             <h1 className="text-5xl md:text-7xl lg:text-[5.5rem] font-black text-white tracking-tighter mb-8 leading-[1.05] uppercase">
-              Dominate The <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-400 to-emerald-500">{formattedLocation}</span>{" "}
-              <br/>{formattedNiche} Market.
+              {heroHeadline.split(formattedLocation).map((part: string, i: number, arr: any[]) => (
+                <span key={i}>
+                  {part}
+                  {i < arr.length - 1 && <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-400 to-emerald-500">{formattedLocation}</span>}
+                </span>
+              ))}
             </h1>
             <p className="text-xl md:text-2xl text-zinc-400 mb-12 max-w-3xl mx-auto leading-relaxed font-medium">
-              Verified contact info for local decision-makers in the <strong>{formattedLocation} {formattedNiche}</strong> space. Skip the gatekeepers. Unlock commercial contracts instantly.
+              {agentData?.heroSub ? agentData.heroSub : (
+                <>Verified contact info for local decision-makers in the <strong>{formattedLocation} {formattedNiche}</strong> space. Skip the gatekeepers. Unlock commercial contracts instantly.</>
+              )}
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
               <Link 
@@ -126,23 +152,23 @@ export default async function CityPage({ params }: { params: Promise<{ niche: st
           <div className="container mx-auto px-6 max-w-5xl">
             <div className="grid md:grid-cols-2 gap-16 items-center">
               <div>
-                <h2 className="text-4xl md:text-5xl font-black text-white mb-6 uppercase tracking-tight">Why Buy <span className="text-emerald-500">{formattedLocation}</span>{" "}{formattedNiche} Leads?</h2>
+                <h2 className="text-4xl md:text-5xl font-black text-white mb-6 uppercase tracking-tight">{infoHeading}</h2>
                 <p className="text-xl text-zinc-400 mb-8 leading-relaxed">
-                  Building a business in the {formattedLocation} market requires speed. If you&apos;re manually scraping directories or paying for shared live leads, you&apos;re already behind. 
+                  {infoParagraph}
                 </p>
                 <ul className="space-y-4">
                   <li className="flex items-start gap-4">
                     <div className="bg-emerald-500/10 p-2 rounded-lg mt-1"><CheckCircle2 className="h-5 w-5 text-emerald-400" /></div>
                     <div>
-                      <h4 className="text-lg font-bold text-white mb-1">Exclusive Data Ownership</h4>
-                      <p className="text-zinc-500 text-sm">Once you download our {formattedLocation} directory, you own it forever. Pitch them infinitely.</p>
+                      <h4 className="text-lg font-bold text-white mb-1">{agentData?.feat1Title || "Exclusive Data Ownership"}</h4>
+                      <p className="text-zinc-500 text-sm">{agentData?.feat1Desc || `Download our ${formattedLocation} targeted directory and own the B2B contact records forever to pitch infinitely.`}</p>
                     </div>
                   </li>
                   <li className="flex items-start gap-4">
                     <div className="bg-emerald-500/10 p-2 rounded-lg mt-1"><UserCheck className="h-5 w-5 text-emerald-400" /></div>
                     <div>
-                      <h4 className="text-lg font-bold text-white mb-1">Direct to Decision-Makers</h4>
-                      <p className="text-zinc-500 text-sm">We provide direct facility, office, and business owner emails and cell phones to skip gatekeepers.</p>
+                      <h4 className="text-lg font-bold text-white mb-1">{agentData?.feat2Title || "Direct to Decision-Makers"}</h4>
+                      <p className="text-zinc-500 text-sm">{agentData?.feat2Desc || `Bypass gatekeepers using verified cell phones and direct email addresses of ${cityName} business owners and facility managers.`}</p>
                     </div>
                   </li>
                 </ul>
