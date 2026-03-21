@@ -262,6 +262,22 @@ export default async function CityPage({ params }: { params: Promise<{ niche: st
                 <h4 className="text-xl font-bold text-white mb-3">What if contacts have bounced or moved on?</h4>
                 <p className="text-zinc-400 leading-relaxed">We over-deliver on every list (providing 10-15% extra contacts at no charge) specifically to account for any natural business turnover in {formattedLocation}.</p>
               </div>
+              <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-8 hover:border-emerald-500/30 transition-colors shadow-sm">
+                <h4 className="text-xl font-bold text-white mb-3">Is this data compliant with outreach laws?</h4>
+                <p className="text-zinc-400 leading-relaxed">Yes. Our records focus strictly on Business-to-Business (B2B) targets. Cold calling and cold emailing businesses is legal in the US (under CAN-SPAM laws) provided you honor opt-out requests and represent your {formattedNiche.toLowerCase()} business honestly.</p>
+              </div>
+              <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-8 hover:border-emerald-500/30 transition-colors shadow-sm">
+                <h4 className="text-xl font-bold text-white mb-3">How do I import this {formattedLocation} data?</h4>
+                <p className="text-zinc-400 leading-relaxed">Your targeted {formattedNiche.toLowerCase()} lists are delivered as standard CSV/Excel sheets. They are pre-formatted so you can instantly upload them into popular CRMs like GoHighLevel, HubSpot, Pipedrive, or mass cold email tools like Instantly and Woodpecker.</p>
+              </div>
+              <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-8 hover:border-emerald-500/30 transition-colors shadow-sm">
+                <h4 className="text-xl font-bold text-white mb-3">Why shouldn't I just run Google Ads in {cityName}?</h4>
+                <p className="text-zinc-400 leading-relaxed">In massive segments like {formattedNiche.toLowerCase()}, Cost Per Click (CPC) ruins profit margins for newer agencies. Buying a mapped-out directory lets you contact hundreds of confirmed local facility decision-makers directly for a fraction of what a single commercial click costs in {cityName}.</p>
+              </div>
+              <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-8 hover:border-emerald-500/30 transition-colors shadow-sm">
+                <h4 className="text-xl font-bold text-white mb-3">Can I use this list for direct mail campaigns?</h4>
+                <p className="text-zinc-400 leading-relaxed">Absolutely. Alongside direct email addresses and cell phones, our {formattedLocation} records feature the exact physical address of the business. Combining direct mail physical flyers with cold calling is an explosive multi-channel strategy.</p>
+              </div>
             </div>
           </div>
         </section>

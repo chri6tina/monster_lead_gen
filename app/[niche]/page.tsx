@@ -8,8 +8,10 @@ import {
   Target, 
   TrendingUp, 
   ShieldCheck,
-  Search
+  Search,
+  CheckCircle2
 } from "lucide-react";
+import { PricingSection } from "@/components/PricingSection";
 
 export async function generateMetadata({ params }: { params: Promise<{ niche: string }> }): Promise<Metadata> {
   const resolvedParams = await params;
@@ -123,6 +125,72 @@ export default async function NicheHubPage({ params }: { params: Promise<{ niche
                 <p className="text-zinc-400 leading-relaxed text-sm">
                   One $3,000/month commercial {formattedNiche.toLowerCase()} contract is worth hundreds of tiny residential requests. By buying a cold lead database, you fill your pipeline with 100% B2B intent.
                 </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Universal Pricing Section */}
+        <PricingSection formattedNiche={formattedNiche} />
+
+        {/* Content Expansion: The Opportunity Section */}
+        <section className="py-24 bg-zinc-950 border-t border-zinc-900 relative">
+          <div className="absolute right-0 top-0 w-[500px] h-[500px] bg-teal-500/5 rounded-full blur-[120px] pointer-events-none"></div>
+          <div className="container mx-auto px-6 max-w-5xl relative z-10">
+            <div className="grid md:grid-cols-2 gap-16 items-center">
+              <div>
+                <h2 className="text-4xl md:text-5xl font-black text-white mb-6 uppercase tracking-tight">Stop Wasting Time on <span className="text-emerald-500">Inbound Hope</span></h2>
+                <p className="text-xl text-zinc-400 mb-8 leading-relaxed">
+                  Most {formattedNiche.toLowerCase()} businesses fail because they sit back and wait for customers to find them via expensive Ads or word-of-mouth. Dominate your state by taking control of your outreach proactively. By acquiring a clean, structured database of relevant decision makers, you can completely bypass local competitors who are fighting over expensive Google Search clicks.
+                </p>
+                <div className="space-y-4">
+                  <div className="flex gap-4">
+                    <CheckCircle2 className="w-6 h-6 text-emerald-500 shrink-0 mt-1" />
+                    <p className="text-zinc-300"><strong>Guaranteed Cost structure:</strong> Ads drain your budget daily. Our static {formattedNiche} lists cost money exactly once.</p>
+                  </div>
+                  <div className="flex gap-4">
+                    <CheckCircle2 className="w-6 h-6 text-emerald-500 shrink-0 mt-1" />
+                    <p className="text-zinc-300"><strong>Outbound Predictability:</strong> If you know that 100 cold emails generate 1 meeting, a 500-contact list gives you a mathematical roadmap to 5 new contracts.</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="bg-zinc-900 border border-zinc-800 rounded-3xl p-10 relative overflow-hidden h-full flex flex-col justify-center shadow-xl">
+                 <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 rounded-full blur-[80px]"></div>
+                 <h3 className="text-2xl font-black text-white mb-4 z-10 tracking-tight">Gain Vendor Confidence</h3>
+                 <p className="text-zinc-400 z-10 leading-relaxed text-sm lg:text-base">
+                   You don't need a massive agency to close commercial work. Armed with direct phone numbers and emails, you bypass the front desk entirely. You pitch your {formattedNiche.toLowerCase()} services directly to the owner, site manager, or key decision maker with absolute confidence.
+                 </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Deep FAQ for Niche Page */}
+        <section className="py-24 bg-emerald-950/5 border-t border-zinc-900 relative">
+          <div className="absolute left-0 top-1/2 -translate-y-1/2 w-96 h-96 bg-emerald-500/5 rounded-full blur-[100px] pointer-events-none"></div>
+          <div className="container mx-auto px-6 max-w-4xl relative z-10">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-5xl font-black text-white mb-6 uppercase tracking-tight">{formattedNiche} Prospecting FAQ</h2>
+              <p className="text-lg text-zinc-400">Everything you need to know about rapidly deploying your B2B {formattedNiche.toLowerCase()} data.</p>
+            </div>
+            
+            <div className="space-y-4">
+              <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-8 hover:border-emerald-500/30 transition-colors shadow-sm">
+                <h4 className="text-xl font-bold text-white mb-3">Where do these {formattedNiche.toLowerCase()} prospects come from?</h4>
+                <p className="text-zinc-400 leading-relaxed">Our infrastructure aggressively scrapes publicly available corporate registries, local chamber endpoints, massive proprietary B2B databases, and networking sites to compile and verify accurate facility and corporate decision-maker data.</p>
+              </div>
+              <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-8 hover:border-emerald-500/30 transition-colors shadow-sm">
+                <h4 className="text-xl font-bold text-white mb-3">Are these shared leads? Will I be competing?</h4>
+                <p className="text-zinc-400 leading-relaxed">No. We sell static databases. Just like a physical phonebook, the massive compilation of {formattedNiche} decision-makers belongs entirely to you upon download. It is up to you to dial the phones and establish the relationship.</p>
+              </div>
+              <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-8 hover:border-emerald-500/30 transition-colors shadow-sm">
+                <h4 className="text-xl font-bold text-white mb-3">What happens if an email bounces?</h4>
+                <p className="text-zinc-400 leading-relaxed">We naturally over-deliver on every purchased package. If you buy a 100-lead package, you will routinely find 110-120 entries specifically to mathematically cancel out any natural staff churn or soft-bounces related to the target market.</p>
+              </div>
+              <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-8 hover:border-emerald-500/30 transition-colors shadow-sm">
+                <h4 className="text-xl font-bold text-white mb-3">Is this data compliant with outreach laws?</h4>
+                <p className="text-zinc-400 leading-relaxed">Yes. Our records focus strictly on Business-to-Business (B2B) targets. Cold calling and cold emailing businesses is legal in the US (under CAN-SPAM laws) provided you honor opt-out requests and represent your {formattedNiche.toLowerCase()} business honestly.</p>
               </div>
             </div>
           </div>
