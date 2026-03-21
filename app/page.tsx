@@ -1,65 +1,204 @@
+import Link from "next/link";
 import Image from "next/image";
+import { 
+  CheckCircle2, 
+  Download, 
+  UserCheck, 
+  TrendingUp,
+  Search,
+  ShoppingCart,
+  Database,
+  Building2,
+  ChevronRight,
+  MapPin,
+  ShieldCheck,
+  X
+} from "lucide-react";
+import { PricingSection } from "@/components/PricingSection";
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+    <div className="min-h-screen bg-zinc-950 font-sans text-zinc-50 flex flex-col pt-20 selection:bg-emerald-500/30">
+      {/* Navbar - Sticky at top */}
+      <nav className="fixed top-0 left-0 right-0 z-50 w-full border-b border-zinc-800 bg-zinc-950/80 backdrop-blur-md">
+        <div className="container mx-auto px-6 h-20 flex items-center justify-between">
+          <Link href="/" className="flex items-center gap-3 group">
+            <Image src="/mascot.png" alt="Monster Lead Gen Mascot" width={36} height={36} className="object-contain group-hover:scale-110 transition-transform drop-shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
+            <span className="text-xl font-black tracking-tighter uppercase text-white group-hover:opacity-90 transition-opacity">
+              Monster<span className="text-emerald-500">Lead.Gen</span>
+            </span>
+          </Link>
+          <div className="hidden md:flex items-center gap-8 text-sm font-bold text-zinc-400">
+            <Link href="#marketplace" className="hover:text-emerald-400 transition-colors uppercase tracking-wide">List Marketplace</Link>
+            <Link href="#request" className="hover:text-emerald-400 transition-colors uppercase tracking-wide">Request Custom City</Link>
+            <Link href="#how-it-works" className="hover:text-emerald-400 transition-colors uppercase tracking-wide">How it Works</Link>
+          </div>
+          <div className="flex items-center">
+            <Link 
+              href="#marketplace" 
+              className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-zinc-950 px-6 py-2.5 rounded-full font-black transition-all shadow-[0_0_15px_rgba(16,185,129,0.4)] hover:shadow-[0_0_25px_rgba(16,185,129,0.6)] flex items-center gap-2 uppercase text-sm tracking-wide"
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+              Shop All Lists <ShoppingCart className="h-4 w-4" />
+            </Link>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+      </nav>
+
+      <main className="flex-1">
+        {/* Header/Hero Section */}
+        <section className="relative pt-20 pb-32 overflow-hidden border-b border-zinc-900">
+          {/* Cybernetic Green/Teal Glowing Background */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-emerald-500/20 rounded-full blur-[140px] opacity-50 pointer-events-none"></div>
+          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-teal-500/20 rounded-full blur-[120px] opacity-40 pointer-events-none translate-x-1/3 -translate-y-1/3"></div>
+          
+          <div className="container mx-auto px-6 relative z-10 text-center max-w-5xl">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-bold text-xs sm:text-sm mb-8 uppercase tracking-widest shadow-[0_0_10px_rgba(16,185,129,0.1)]">
+              <Database className="h-4 w-4" /> B2B Data Broker For Starter Hustles
+            </div>
+            <h1 className="text-6xl md:text-8xl lg:text-[6rem] font-black text-white tracking-tighter mb-8 leading-[1.05] uppercase">
+              Stop Waiting For Leads.<br /> <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-400 to-emerald-500">Start Feeding The Monster.</span>
+            </h1>
+            <p className="text-xl md:text-2xl text-zinc-400 mb-12 max-w-3xl mx-auto leading-relaxed font-medium">
+              Verified contact info for local decision-makers in Commercial Cleaning, Lawn Care, Logistics, and more. Skip the gatekeepers. Unlock commercial contracts.
+            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+              <Link 
+                href="#marketplace" 
+                className="w-full sm:w-auto px-8 py-5 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-zinc-950 rounded-full font-black text-lg transition-all shadow-[0_0_30px_rgba(16,185,129,0.3)] hover:shadow-[0_0_40px_rgba(16,185,129,0.5)] flex items-center justify-center gap-3 uppercase tracking-wider hover:-translate-y-1"
+              >
+                Shop Niche Marketplace <ShoppingCart className="h-6 w-6" />
+              </Link>
+              <Link 
+                href="#request" 
+                className="w-full sm:w-auto px-8 py-5 bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-700 hover:border-zinc-500 rounded-full font-bold text-lg text-white transition-all flex items-center justify-center gap-3 backdrop-blur-sm hover:-translate-y-1 uppercase tracking-wider"
+              >
+                Request Custom Data <Search className="h-6 w-6 text-zinc-400" />
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        <PricingSection />
+
+        {/* Why It Works Section */}
+        <section id="how-it-works" className="py-32 relative scroll-mt-20 border-t border-zinc-900 bg-zinc-950">
+          {/* Decor */}
+          <div className="absolute left-0 top-1/2 -translate-y-1/2 w-96 h-96 bg-teal-500/10 rounded-full blur-[100px] pointer-events-none"></div>
+
+          <div className="container mx-auto px-6 relative z-10">
+            <div className="text-center mb-20">
+              <h2 className="text-5xl md:text-6xl font-black text-white mb-6 uppercase tracking-tighter">Why Our Data <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-500">Dominates</span></h2>
+              <p className="text-xl text-zinc-400 max-w-3xl mx-auto font-medium">We don&apos;t sell scraped junk. We build precision-targeted lists of the exact people who can sign your commercial contracts.</p>
+            </div>
+            
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 max-w-7xl mx-auto">
+              {/* Feature 1 */}
+              <div className="text-center group flex flex-col items-center">
+                <div className="w-24 h-24 bg-zinc-900 border border-zinc-800 rounded-3xl flex items-center justify-center mb-8 shadow-xl group-hover:border-emerald-500/50 group-hover:bg-emerald-500/10 transition-all duration-300 relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                  <CheckCircle2 className="h-12 w-12 text-emerald-400 group-hover:scale-110 group-hover:text-emerald-300 transition-all relative z-10" />
+                </div>
+                <h3 className="text-2xl font-black text-white mb-4 uppercase tracking-wide">Fresh, Human-Verified Data</h3>
+                <p className="text-zinc-400 text-lg leading-relaxed">No outdated public scraper lists. Every contact is manually scrubbed and verified for high-conversion accuracy.</p>
+              </div>
+
+              {/* Feature 2 */}
+              <div className="text-center group flex flex-col items-center">
+                <div className="w-24 h-24 bg-zinc-900 border border-zinc-800 rounded-3xl flex items-center justify-center mb-8 shadow-xl group-hover:border-emerald-500/50 group-hover:bg-emerald-500/10 transition-all duration-300 relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                  <UserCheck className="h-12 w-12 text-emerald-400 group-hover:scale-110 group-hover:text-emerald-300 transition-all relative z-10" />
+                </div>
+                <h3 className="text-2xl font-black text-white mb-4 uppercase tracking-wide">Decision-Makers Only</h3>
+                <p className="text-zinc-400 text-lg leading-relaxed">Direct Emails and Cell Phones. Stop wasting cold calls and emails pitching to the front-desk secretary.</p>
+              </div>
+
+              {/* Feature 3 */}
+              <div className="text-center group flex flex-col items-center">
+                <div className="w-24 h-24 bg-zinc-900 border border-zinc-800 rounded-3xl flex items-center justify-center mb-8 shadow-xl group-hover:border-emerald-500/50 group-hover:bg-emerald-500/10 transition-all duration-300 relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                  <Download className="h-12 w-12 text-emerald-400 group-hover:scale-110 group-hover:text-emerald-300 transition-all relative z-10" />
+                </div>
+                <h3 className="text-2xl font-black text-white mb-4 uppercase tracking-wide">Instant Download</h3>
+                <p className="text-zinc-400 text-lg leading-relaxed">When you buy a territory list, you get the CSV/Excel file immediately upon purchase. No waiting.</p>
+              </div>
+
+              {/* Feature 4 */}
+              <div className="text-center group flex flex-col items-center">
+                <div className="w-24 h-24 bg-zinc-900 border border-zinc-800 rounded-3xl flex items-center justify-center mb-8 shadow-xl group-hover:border-emerald-500/50 group-hover:bg-emerald-500/10 transition-all duration-300 relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                  <TrendingUp className="h-12 w-12 text-emerald-400 group-hover:scale-110 group-hover:text-emerald-300 transition-all relative z-10" />
+                </div>
+                <h3 className="text-2xl font-black text-white mb-4 uppercase tracking-wide">Unlock Recurring Revenue</h3>
+                <p className="text-zinc-400 text-lg leading-relaxed">Our lists are specifically targeted to secure lucrative, long-term commercial B2B contracts for your business.</p>
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
+
+      {/* Footer */}
+      <footer className="bg-zinc-950 py-20 border-t border-zinc-900 relative">
+        <div className="container mx-auto px-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-16 mb-16">
+            <div className="col-span-1 lg:col-span-2">
+              <div className="flex items-center gap-3 mb-6">
+                <Image src="/mascot.png" alt="Monster Lead Gen Mascot" width={40} height={40} className="object-contain" />
+                <span className="text-2xl font-black tracking-tighter text-white uppercase">Monster<span className="text-emerald-500">Lead.Gen</span></span>
+              </div>
+              <p className="text-zinc-400 max-w-sm mb-6 text-lg font-medium leading-relaxed">
+                The leading B2B Data Broker for modern Starter Hustles. We provide the ammunition, you pull the trigger.
+              </p>
+            </div>
+            
+            <div>
+              <h4 className="font-black text-white mb-6 uppercase tracking-widest text-sm text-emerald-500">Explore</h4>
+              <ul className="space-y-4">
+                <li><Link href="#marketplace" className="text-zinc-400 hover:text-white transition-colors font-semibold">List Marketplace</Link></li>
+                <li><Link href="#how-it-works" className="text-zinc-400 hover:text-white transition-colors font-semibold">How it Works</Link></li>
+                <li><Link href="#request" className="text-zinc-400 hover:text-white transition-colors font-semibold">Custom Orders</Link></li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="font-black text-white mb-6 uppercase tracking-widest text-sm text-emerald-500">Legal</h4>
+              <ul className="space-y-4">
+                <li><Link href="/terms" className="text-zinc-400 hover:text-white transition-colors font-semibold">Terms of Data Use</Link></li>
+                <li><Link href="/privacy" className="text-zinc-400 hover:text-white transition-colors font-semibold">Privacy Policy</Link></li>
+              </ul>
+            </div>
+            
+            <div className="lg:col-span-1"></div>
+          </div>
+
+          {/* Custom City Request Box */}
+          <div id="request" className="bg-zinc-900 border border-zinc-800 rounded-3xl p-10 md:p-14 text-center max-w-5xl mx-auto relative overflow-hidden mt-8 shadow-2xl scroll-mt-24">
+            <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-teal-500/10 rounded-full blur-[100px] pointer-events-none translate-x-1/3 -translate-y-1/3"></div>
+            <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-emerald-500/10 rounded-full blur-[80px] pointer-events-none -translate-x-1/3 translate-y-1/3"></div>
+            
+            <div className="relative z-10">
+              <h3 className="text-3xl md:text-4xl font-black text-white mb-4 uppercase tracking-tighter">Can&apos;t Find Your City or Niche?</h3>
+              <p className="text-zinc-400 mb-10 max-w-2xl mx-auto text-xl font-medium">
+                We build custom B2B data lists on demand. Tell us your target industry, decision-maker titles, and region.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-3xl mx-auto">
+                <input 
+                  type="email" 
+                  placeholder="Enter Your Email Address" 
+                  className="w-full bg-zinc-950 border border-zinc-700 rounded-2xl px-6 py-5 text-white placeholder-zinc-500 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all font-medium text-lg shadow-inner"
+                />
+                <button className="whitespace-nowrap bg-zinc-100 hover:bg-white text-zinc-950 px-8 py-5 rounded-2xl font-black transition-all shadow-xl hover:shadow-white/20 flex items-center justify-center gap-2 uppercase tracking-wide text-lg">
+                  Request Custom List <Search className="h-5 w-5" />
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <div className="mt-20 pt-8 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-6 text-zinc-600 font-bold text-sm">
+            <p>&copy; {new Date().getFullYear()} Monster Lead Gen. All rights reserved.</p>
+            <p className="uppercase tracking-widest text-emerald-900/40 text-xs sm:text-sm">For Hustlers Who Dominate.</p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
