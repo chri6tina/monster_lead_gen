@@ -4,6 +4,7 @@ import { Metadata } from "next";
 import { ChevronLeft, Calendar, User, ArrowRight, ArrowLeft } from "lucide-react";
 import fs from 'fs/promises';
 import path from 'path';
+import { supabase } from "@/lib/supabase";
 
 // Define the shape of our AI Agent Blog Payload
 interface BlogData {
@@ -18,6 +19,19 @@ interface BlogData {
 }
 
 async function getBlogData(slug: string): Promise<BlogData | null> {
+  // 1. Try Supabase
+  if (supabase) {
+    try {
+      const { data, error } = await supabase.from('blogs').select('*').eq('slug', slug).single();
+      if (!error && data) {
+        return data as BlogData;
+      }
+    } catch (e) {
+      console.warn(`Supabase fetch failed for blog slug: ${slug}`, e);
+    }
+  }
+
+  // 2. Fallback to Local JSON
   try {
     const dataPath = path.join(process.cwd(), 'data', 'blogs', `${slug}.json`);
     const fileContents = await fs.readFile(dataPath, 'utf-8');

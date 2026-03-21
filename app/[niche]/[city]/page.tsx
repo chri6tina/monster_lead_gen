@@ -14,6 +14,7 @@ import { PricingSection } from "@/components/PricingSection";
 import fs from 'fs/promises';
 import path from 'path';
 import { Metadata } from 'next';
+import { supabase } from '@/lib/supabase';
 
 export async function generateMetadata({ params }: { params: Promise<{ niche: string; city: string }> }): Promise<Metadata> {
   const resolvedParams = await params;
@@ -61,15 +62,36 @@ export default async function CityPage({ params }: { params: Promise<{ niche: st
 
   // ==== AGENT DATA INGESTION HOOK ====
   // Future AI Agents (like the Cleaning Company Agent Manager) will write their heavily researched 
-  // content into JSON files structured like: /data/commercial-cleaning-leads/jacksonville-fl.json
-  // If the file exists, the template uses it. If not, it gracefully degrades to the optimized universal SEO template.
+  // content into Supabase OR JSON files.
+  // If the record exists, the template uses it. If not, it gracefully degrades to the optimized universal SEO template.
   let agentData: any = null;
-  try {
-    const dataPath = path.join(process.cwd(), 'data', resolvedParams.niche, `${resolvedParams.city}.json`);
-    const fileContents = await fs.readFile(dataPath, 'utf-8');
-    agentData = JSON.parse(fileContents);
-  } catch (err) {
-    // No custom agent data generated yet for this specific city/niche combo
+  
+  // 1. Try Supabase
+  if (supabase) {
+    try {
+      const { data, error } = await supabase.from('city_pages')
+        .select('*')
+        .eq('niche_slug', resolvedParams.niche)
+        .eq('city_slug', resolvedParams.city)
+        .single();
+        
+      if (!error && data) {
+        agentData = data;
+      }
+    } catch (err) {
+      console.warn("Supabase fetch failed for city data, falling back to JSON.");
+    }
+  }
+
+  // 2. Fallback to Local JSON (if supabase failed or returned nothing)
+  if (!agentData) {
+    try {
+      const dataPath = path.join(process.cwd(), 'data', resolvedParams.niche, `${resolvedParams.city}.json`);
+      const fileContents = await fs.readFile(dataPath, 'utf-8');
+      agentData = JSON.parse(fileContents);
+    } catch (err) {
+      // No custom agent data generated yet for this specific city/niche combo
+    }
   }
 
   // SEO Optimized Fallbacks (Long-Tail Focus)

@@ -4,15 +4,30 @@ import { Metadata } from "next";
 import { ChevronRight, ArrowRight, Rss, Calendar, User } from "lucide-react";
 import fs from 'fs/promises';
 import path from 'path';
+import { supabase } from "@/lib/supabase";
 
 export const metadata: Metadata = {
   title: "Outbound Strategy & Industry Insights | Lead Monster Blog",
   description: "Learn how to scale your B2B service business using direct outbound marketing, cold outreach scripts, and verified prospect databases.",
 };
 
-// This function crawls the /data/blogs directory to fetch all AI-generated articles
+// This function attempts to fetch from Supabase first, falling back to local JSON files
 async function getBlogIndex() {
   const blogs = [];
+
+  // 1. Try Supabase
+  if (supabase) {
+    try {
+      const { data, error } = await supabase.from('blogs').select('*').order('date', { ascending: false });
+      if (!error && data && data.length > 0) {
+        return data;
+      }
+    } catch (e) {
+      console.warn("Supabase fetch failed, falling back to local JSON data...", e);
+    }
+  }
+
+  // 2. Fallback to Local Files (for testing / before Supabase migration)
   try {
     const blogsDir = path.join(process.cwd(), 'data', 'blogs');
     // Ensure dir exists
