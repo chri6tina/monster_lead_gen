@@ -12,6 +12,28 @@ import {
 } from "lucide-react";
 import { PricingSection } from "@/components/PricingSection";
 
+import { Metadata } from 'next';
+
+export async function generateMetadata({ params }: { params: Promise<{ niche: string; city: string }> }): Promise<Metadata> {
+  const resolvedParams = await params;
+  
+  const rawNiche = resolvedParams.niche.toLowerCase().replace(/-leads$/, '').replace(/-/g, ' ');
+  const formattedNiche = rawNiche.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+
+  const cityParts = resolvedParams.city.split('-');
+  let stateAbbr = "";
+  if (cityParts.length > 1 && cityParts[cityParts.length - 1].length === 2) {
+    stateAbbr = cityParts.pop()?.toUpperCase() || "";
+  }
+  const cityName = cityParts.map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+  const formattedLocation = stateAbbr ? `${cityName}, ${stateAbbr}` : cityName;
+
+  return {
+    title: `Buy ${formattedNiche} Leads in ${formattedLocation} | Lead Monster`,
+    description: `Download verified B2B contact lists for ${formattedNiche} prospects in ${formattedLocation}. Get direct emails and cell phones to close commercial contracts.`,
+  };
+}
+
 // Server Component for dynamic routes in Next.js App Router (App router uses `params` as a Promise in Next.js 15+)
 // Note: Depending on Next.js exact version, params is either a promise (Next.js 15+) or an object (Next.js 14-). Since we're using latest app router (Next.js 15+ convention), let's await it.
 export default async function CityPage({ params }: { params: Promise<{ niche: string; city: string }> }) {
@@ -36,9 +58,11 @@ export default async function CityPage({ params }: { params: Promise<{ niche: st
       <nav className="fixed top-0 left-0 right-0 z-50 w-full border-b border-zinc-800 bg-zinc-950/80 backdrop-blur-md">
         <div className="container mx-auto px-6 h-20 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3 group">
-            <Image src="/mascot.png" alt="Monster Lead Gen Mascot" width={36} height={36} className="object-contain group-hover:scale-110 transition-transform drop-shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
+            <div className="w-10 h-10 rounded-[10px] overflow-hidden border border-emerald-500/30 flex items-center justify-center bg-zinc-900 shadow-[0_0_10px_rgba(16,185,129,0.2)] group-hover:shadow-[0_0_15px_rgba(16,185,129,0.5)] group-hover:border-emerald-500/60 transition-all">
+              <Image src="/mascot.png" alt="Lead Monster" width={48} height={48} className="object-cover scale-150 group-hover:scale-[1.6] transition-transform" />
+            </div>
             <span className="text-xl font-black tracking-tighter uppercase text-white group-hover:opacity-90 transition-opacity">
-              Monster<span className="text-emerald-500">Lead.Gen</span>
+              Lead<span className="text-emerald-500">Monster</span>
             </span>
           </Link>
           <div className="hidden md:flex items-center gap-8 text-sm font-bold text-zinc-400">
@@ -67,7 +91,8 @@ export default async function CityPage({ params }: { params: Promise<{ niche: st
               <MapPin className="h-4 w-4" /> Exclusive {formattedLocation} Territory
             </div>
             <h1 className="text-5xl md:text-7xl lg:text-[5.5rem] font-black text-white tracking-tighter mb-8 leading-[1.05] uppercase">
-              Dominate The <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-400 to-emerald-500">{formattedLocation}</span> <br/>{formattedNiche} Market.
+              Dominate The <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-400 to-emerald-500">{formattedLocation}</span>{" "}
+              <br/>{formattedNiche} Market.
             </h1>
             <p className="text-xl md:text-2xl text-zinc-400 mb-12 max-w-3xl mx-auto leading-relaxed font-medium">
               Verified contact info for local decision-makers in the <strong>{formattedLocation} {formattedNiche}</strong> space. Skip the gatekeepers. Unlock commercial contracts instantly.
@@ -95,7 +120,7 @@ export default async function CityPage({ params }: { params: Promise<{ niche: st
           <div className="container mx-auto px-6 max-w-5xl">
             <div className="grid md:grid-cols-2 gap-16 items-center">
               <div>
-                <h2 className="text-4xl md:text-5xl font-black text-white mb-6 uppercase tracking-tight">Why Buy <span className="text-emerald-500">{formattedLocation}</span> {formattedNiche} Leads?</h2>
+                <h2 className="text-4xl md:text-5xl font-black text-white mb-6 uppercase tracking-tight">Why Buy <span className="text-emerald-500">{formattedLocation}</span>{" "}{formattedNiche} Leads?</h2>
                 <p className="text-xl text-zinc-400 mb-8 leading-relaxed">
                   Building a business in the {formattedLocation} market requires speed. If you&apos;re manually scraping directories or paying for shared live leads, you&apos;re already behind. 
                 </p>
@@ -187,8 +212,10 @@ export default async function CityPage({ params }: { params: Promise<{ niche: st
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-16 mb-16">
             <div className="col-span-1 lg:col-span-2">
               <div className="flex items-center gap-3 mb-6">
-                <Image src="/mascot.png" alt="Monster Lead Gen Mascot" width={40} height={40} className="object-contain" />
-                <span className="text-2xl font-black tracking-tighter text-white uppercase">Monster<span className="text-emerald-500">Lead.Gen</span></span>
+                <div className="w-12 h-12 rounded-[12px] overflow-hidden border border-emerald-500/30 flex items-center justify-center bg-zinc-900 shadow-[0_0_10px_rgba(16,185,129,0.2)]">
+                  <Image src="/mascot.png" alt="Lead Monster" width={56} height={56} className="object-cover scale-150" />
+                </div>
+                <span className="text-2xl font-black tracking-tighter text-white uppercase">Lead<span className="text-emerald-500">Monster</span></span>
               </div>
               <p className="text-zinc-400 max-w-sm mb-6 text-lg font-medium leading-relaxed">
                 The leading B2B Data Broker for modern Starter Hustles.
@@ -204,7 +231,7 @@ export default async function CityPage({ params }: { params: Promise<{ niche: st
             </div>
           </div>
           <div className="mt-20 pt-8 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-6 text-zinc-600 font-bold text-sm">
-            <p>&copy; {new Date().getFullYear()} Monster Lead Gen. All rights reserved.</p>
+            <p>&copy; {new Date().getFullYear()} Lead Monster. All rights reserved.</p>
             <p className="uppercase tracking-widest text-emerald-900/40 text-xs sm:text-sm">For Hustlers Who Dominate.</p>
           </div>
         </div>

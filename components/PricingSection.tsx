@@ -12,7 +12,7 @@ export function PricingSection({
   formattedNiche,
 }: PricingSectionProps) {
   const headingHtml = formattedLocation && formattedNiche 
-    ? <>Your <span className="text-emerald-500 drop-shadow-[0_0_15px_rgba(16,185,129,0.3)]">{formattedLocation}</span> Leads Arsenal</>
+    ? <>Your <span className="text-emerald-500 drop-shadow-[0_0_15px_rgba(16,185,129,0.3)]">{formattedLocation}</span>{" "}Leads Arsenal</>
     : <>Fuel Your New Business:<br/><span className="text-emerald-500 drop-shadow-[0_0_15px_rgba(16,185,129,0.3)]">Choose Your Arsenal</span></>;
     
   const subHeadingStr = formattedLocation && formattedNiche

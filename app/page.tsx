@@ -23,9 +23,11 @@ export default function Home() {
       <nav className="fixed top-0 left-0 right-0 z-50 w-full border-b border-zinc-800 bg-zinc-950/80 backdrop-blur-md">
         <div className="container mx-auto px-6 h-20 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3 group">
-            <Image src="/mascot.png" alt="Monster Lead Gen Mascot" width={36} height={36} className="object-contain group-hover:scale-110 transition-transform drop-shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
+            <div className="w-10 h-10 rounded-[10px] overflow-hidden border border-emerald-500/30 flex items-center justify-center bg-zinc-900 shadow-[0_0_10px_rgba(16,185,129,0.2)] group-hover:shadow-[0_0_15px_rgba(16,185,129,0.5)] group-hover:border-emerald-500/60 transition-all">
+              <Image src="/mascot.png" alt="Lead Monster" width={48} height={48} className="object-cover scale-150 group-hover:scale-[1.6] transition-transform" />
+            </div>
             <span className="text-xl font-black tracking-tighter uppercase text-white group-hover:opacity-90 transition-opacity">
-              Monster<span className="text-emerald-500">Lead.Gen</span>
+              Lead<span className="text-emerald-500">Monster</span>
             </span>
           </Link>
           <div className="hidden md:flex items-center gap-8 text-sm font-bold text-zinc-400">
@@ -134,6 +136,37 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        {/* Top Targeted Markets */}
+        <section className="py-32 bg-zinc-950 border-t border-zinc-900 relative">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-lg h-96 bg-emerald-500/5 rounded-full blur-[120px] pointer-events-none"></div>
+          <div className="container mx-auto px-6 relative z-10 max-w-6xl">
+            <h2 className="text-4xl md:text-5xl font-black text-white mb-6 uppercase tracking-tighter text-center">Top Targeted Markets</h2>
+            <p className="text-xl text-zinc-400 font-medium text-center mb-16 max-w-2xl mx-auto">Browse our most popular lead directories by niche and city.</p>
+            
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {[
+                { label: "Commercial Cleaning in Jax, FL", path: "/commercial-cleaning-leads/jacksonville-fl" },
+                { label: "Commercial Cleaning in Miami", path: "/commercial-cleaning-leads/miami-fl" },
+                { label: "Landscaping in Atlanta, GA", path: "/landscaping-leads/atlanta-ga" },
+                { label: "Landscaping in Charlotte", path: "/landscaping-leads/charlotte-nc" },
+                { label: "HVAC in Dallas, TX", path: "/hvac-leads/dallas-tx" },
+                { label: "HVAC in Austin, TX", path: "/hvac-leads/austin-tx" },
+                { label: "Plumbing in Denver, CO", path: "/plumbing-leads/denver-co" },
+                { label: "Plumbing in Phoenix, AZ", path: "/plumbing-leads/phoenix-az" }
+              ].map((link, i) => (
+                <Link 
+                  key={i} 
+                  href={link.path}
+                  className="bg-zinc-900 border border-zinc-800 hover:border-emerald-500/50 hover:bg-zinc-800 text-zinc-300 hover:text-white p-6 rounded-2xl font-bold transition-all flex items-center justify-between group shadow-sm text-sm"
+                >
+                  <span className="truncate mr-3">{link.label}</span>
+                  <ChevronRight className="h-5 w-5 text-emerald-500/50 group-hover:text-emerald-400 transition-colors shrink-0" />
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
       </main>
 
       {/* Footer */}
@@ -142,8 +175,10 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-16 mb-16">
             <div className="col-span-1 lg:col-span-2">
               <div className="flex items-center gap-3 mb-6">
-                <Image src="/mascot.png" alt="Monster Lead Gen Mascot" width={40} height={40} className="object-contain" />
-                <span className="text-2xl font-black tracking-tighter text-white uppercase">Monster<span className="text-emerald-500">Lead.Gen</span></span>
+                <div className="w-12 h-12 rounded-[12px] overflow-hidden border border-emerald-500/30 flex items-center justify-center bg-zinc-900 shadow-[0_0_10px_rgba(16,185,129,0.2)]">
+                  <Image src="/mascot.png" alt="Lead Monster" width={56} height={56} className="object-cover scale-150" />
+                </div>
+                <span className="text-2xl font-black tracking-tighter text-white uppercase">Lead<span className="text-emerald-500">Monster</span></span>
               </div>
               <p className="text-zinc-400 max-w-sm mb-6 text-lg font-medium leading-relaxed">
                 The leading B2B Data Broker for modern Starter Hustles. We provide the ammunition, you pull the trigger.
@@ -194,7 +229,7 @@ export default function Home() {
           </div>
           
           <div className="mt-20 pt-8 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-6 text-zinc-600 font-bold text-sm">
-            <p>&copy; {new Date().getFullYear()} Monster Lead Gen. All rights reserved.</p>
+            <p>&copy; {new Date().getFullYear()} Lead Monster. All rights reserved.</p>
             <p className="uppercase tracking-widest text-emerald-900/40 text-xs sm:text-sm">For Hustlers Who Dominate.</p>
           </div>
         </div>
