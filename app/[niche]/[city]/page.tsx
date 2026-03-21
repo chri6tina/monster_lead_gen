@@ -94,6 +94,19 @@ export default async function CityPage({ params }: { params: Promise<{ niche: st
     }
   ];
 
+  // Target Audience Hook
+  const targetAudienceHeading = agentData?.targetAudienceHeading || `Who Uses Our ${formattedLocation} Data?`;
+  const targetAudience = agentData?.targetAudience || [
+    { icon: "UserCheck", title: "Local Agencies", desc: `Get direct access to facility managers looking for ${formattedNiche} services.` },
+    { icon: "CheckCircle2", title: "B2B Sales Teams", desc: "Skip the gatekeepers and call decision-makers directly." },
+    { icon: "MapPin", title: "Enterprise Outreach", desc: `Load our ${cityName} CSVs directly into your multi-channel CRM sequences.` }
+  ];
+
+  // Market Landscape Hook
+  const landscapeHeading = agentData?.landscapeHeading || `The ${formattedLocation} ${formattedNiche} Landscape`;
+  const landscapeParagraph1 = agentData?.landscapeParagraph1 || `The demand for reliable ${formattedNiche.toLowerCase()} partners in ${formattedLocation} is at an all-time high. Facilities, offices, and commercial spaces are constantly turning over vendors. If you aren't first in their inbox, your competitors are.`;
+  const landscapeParagraph2 = agentData?.landscapeParagraph2 || `By leveraging our verified lead database, you bypass the traditional, slow inbound marketing strategies. We give you the exact names, numbers, and emails of the people holding the checkbook in ${cityName}.`;
+
   return (
     <div className="min-h-screen bg-zinc-950 font-sans text-zinc-50 flex flex-col pt-20 selection:bg-emerald-500/30">
       {/* Navbar - Sticky at top */}
@@ -198,7 +211,35 @@ export default async function CityPage({ params }: { params: Promise<{ niche: st
           </div>
         </section>
 
+        {/* Target Audience Section */}
+        <section className="py-24 bg-zinc-950 border-t border-zinc-900">
+          <div className="container mx-auto px-6 max-w-6xl">
+            <h2 className="text-3xl md:text-5xl font-black text-white mb-16 uppercase tracking-tight text-center">{targetAudienceHeading}</h2>
+            <div className="grid md:grid-cols-3 gap-8">
+              {targetAudience.map((aud: any, i: number) => (
+                <div key={i} className="bg-zinc-900 border border-zinc-800 p-8 rounded-3xl flex flex-col items-center text-center hover:border-emerald-500/30 transition-all shadow-lg">
+                  <div className="w-16 h-16 bg-zinc-950 border border-zinc-800 rounded-full flex items-center justify-center mb-6 shadow-inner text-emerald-400">
+                    {i === 0 ? <UserCheck className="w-8 h-8" /> : (i === 1 ? <CheckCircle2 className="w-8 h-8" /> : <MapPin className="w-8 h-8" />)}
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-3">{aud.title}</h3>
+                  <p className="text-zinc-400 leading-relaxed text-sm">{aud.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
 
+        {/* Market Landscape Section (Deep SEO Text) */}
+        <section className="py-24 bg-emerald-950/5 border-t border-zinc-900 relative">
+          <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-emerald-500/5 rounded-full blur-[120px] pointer-events-none"></div>
+          <div className="container mx-auto px-6 max-w-4xl relative z-10 text-center">
+            <h2 className="text-3xl md:text-5xl font-black text-white mb-8 uppercase tracking-tight">{landscapeHeading}</h2>
+            <div className="space-y-6 text-lg text-zinc-300 leading-loose font-medium">
+              <p>{landscapeParagraph1}</p>
+              <p>{landscapeParagraph2}</p>
+            </div>
+          </div>
+        </section>
 
         {/* FAQ Section */}
         <section className="py-24 bg-zinc-950 border-t border-zinc-900">
