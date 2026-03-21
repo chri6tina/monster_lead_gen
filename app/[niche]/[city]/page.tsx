@@ -78,6 +78,22 @@ export default async function CityPage({ params }: { params: Promise<{ niche: st
   const infoHeading = agentData?.infoHeading || `Why Buy Exclusive ${formattedLocation} ${formattedNiche} Leads?`;
   const infoParagraph = agentData?.infoParagraph || `Scaling a ${formattedNiche.toLowerCase()} business in ${cityName} requires speed and direct access. Stop paying for shared, low-converting homeowner leads. Purchase a static, manually-verified database of ${formattedLocation} B2B prospects and own your outreach pipeline forever.`;
 
+  // Local Blogs Hook
+  const localBlogs = agentData?.blogs || [
+    { 
+      title: `How to Secure ${formattedNiche} Contracts in ${formattedLocation}`, 
+      excerpt: `Discover the exact outreach strategies and decision-maker scripts for closing commercial deals and scaling your growing agency in the ${cityName} area.`, 
+      date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+      url: "#blog" 
+    },
+    { 
+      title: `Top 5 Lead Generation Mistakes ${formattedNiche} Businesses Make in ${stateAbbr || cityName}`, 
+      excerpt: `Avoid these costly errors when doing cold outreach to facility managers, offices, and decision makers in ${formattedLocation}.`, 
+      date: new Date(Date.now() - 86400000 * 3).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+      url: "#blog" 
+    }
+  ];
+
   return (
     <div className="min-h-screen bg-zinc-950 font-sans text-zinc-50 flex flex-col pt-20 selection:bg-emerald-500/30">
       {/* Navbar - Sticky at top */}
@@ -205,6 +221,41 @@ export default async function CityPage({ params }: { params: Promise<{ niche: st
                 <h4 className="text-xl font-bold text-white mb-3">What if contacts have bounced or moved on?</h4>
                 <p className="text-zinc-400 leading-relaxed">We over-deliver on every list (providing 10-15% extra contacts at no charge) specifically to account for any natural business turnover in {formattedLocation}.</p>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Local Insights & Articles (Blog Hub) */}
+        <section className="py-24 bg-zinc-950 border-t border-zinc-900 relative">
+          <div className="absolute right-0 top-1/2 -translate-y-1/2 w-96 h-96 bg-teal-500/5 rounded-full blur-[100px] pointer-events-none"></div>
+          <div className="container mx-auto px-6 max-w-5xl relative z-10">
+            <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+              <div>
+                <h2 className="text-3xl md:text-5xl font-black text-white mb-4 uppercase tracking-tight">Local {cityName} Insights</h2>
+                <p className="text-lg text-zinc-400">Strategies, tips, and articles for dominating the {formattedNiche} market in {formattedLocation}.</p>
+              </div>
+              <Link href="/blog" className="px-6 py-3 bg-zinc-900 border border-zinc-800 hover:border-emerald-500/50 text-white rounded-full font-bold text-sm transition-all hover:bg-zinc-800 whitespace-nowrap hidden sm:block shadow-sm">
+                View All Articles
+              </Link>
+            </div>
+            
+            <div className="grid md:grid-cols-2 gap-6">
+              {localBlogs.map((blog: any, i: number) => (
+                <Link key={i} href={blog.url} className="group block bg-zinc-900 border border-zinc-800 rounded-3xl p-8 hover:border-emerald-500/50 hover:bg-zinc-800/80 transition-all shadow-xl relative overflow-hidden">
+                  <div className="absolute top-0 left-0 w-1 h-full bg-emerald-500/20 group-hover:bg-emerald-500 transition-colors"></div>
+                  <span className="text-emerald-500 text-xs font-black uppercase tracking-widest mb-4 block">{blog.date}</span>
+                  <h3 className="text-xl font-bold text-white mb-3 group-hover:text-emerald-400 transition-colors leading-tight">{blog.title}</h3>
+                  <p className="text-zinc-400 text-sm leading-relaxed mb-6">{blog.excerpt}</p>
+                  <div className="flex items-center text-xs font-bold text-emerald-500 uppercase tracking-widest group-hover:gap-2 transition-all gap-1">
+                    Read Article <ChevronRight className="w-4 h-4" />
+                  </div>
+                </Link>
+              ))}
+            </div>
+            <div className="mt-8 text-center sm:hidden">
+              <Link href="/blog" className="inline-block px-8 py-4 bg-zinc-900 border border-zinc-800 hover:border-emerald-500/50 text-white rounded-full font-bold text-sm transition-all">
+                View All Articles
+              </Link>
             </div>
           </div>
         </section>
