@@ -123,7 +123,7 @@ export default async function NicheHubPage({ params }: { params: Promise<{ niche
                 <TrendingUp className="w-10 h-10 text-emerald-400 mb-6" />
                 <h3 className="text-2xl font-bold text-white mb-3 tracking-tight">3. Recurring B2B Revenue</h3>
                 <p className="text-zinc-400 leading-relaxed text-sm">
-                  One $3,000/month commercial {formattedNiche.toLowerCase()} contract is worth hundreds of tiny residential requests. By buying a cold lead database, you fill your pipeline with 100% B2B intent.
+                  One $3,000/month commercial {formattedNiche.toLowerCase()} contract is worth hundreds of tiny residential requests. By acquiring a verified prospect database, you fill your pipeline with 100% B2B intent.
                 </p>
               </div>
             </div>
@@ -150,7 +150,7 @@ export default async function NicheHubPage({ params }: { params: Promise<{ niche
                   </div>
                   <div className="flex gap-4">
                     <CheckCircle2 className="w-6 h-6 text-emerald-500 shrink-0 mt-1" />
-                    <p className="text-zinc-300"><strong>Outbound Predictability:</strong> If you know that 100 cold emails generate 1 meeting, a 500-contact list gives you a mathematical roadmap to 5 new contracts.</p>
+                    <p className="text-zinc-300"><strong>Outbound Predictability:</strong> If you know that 100 outreach emails generate 1 meeting, a 500-contact list gives you a mathematical roadmap to 5 new contracts.</p>
                   </div>
                 </div>
               </div>
@@ -190,7 +190,7 @@ export default async function NicheHubPage({ params }: { params: Promise<{ niche
               </div>
               <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-8 hover:border-emerald-500/30 transition-colors shadow-sm">
                 <h4 className="text-xl font-bold text-white mb-3">Is this data compliant with outreach laws?</h4>
-                <p className="text-zinc-400 leading-relaxed">Yes. Our records focus strictly on Business-to-Business (B2B) targets. Cold calling and cold emailing businesses is legal in the US (under CAN-SPAM laws) provided you honor opt-out requests and represent your {formattedNiche.toLowerCase()} business honestly.</p>
+                <p className="text-zinc-400 leading-relaxed">Yes. Our records focus strictly on Business-to-Business (B2B) targets. Direct phone and email outreach to businesses is legal in the US (under CAN-SPAM laws) provided you honor opt-out requests and represent your {formattedNiche.toLowerCase()} business honestly.</p>
               </div>
             </div>
           </div>

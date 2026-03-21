@@ -111,7 +111,7 @@ export default function Home() {
                   <UserCheck className="h-12 w-12 text-emerald-400 group-hover:scale-110 group-hover:text-emerald-300 transition-all relative z-10" />
                 </div>
                 <h3 className="text-2xl font-black text-white mb-4 uppercase tracking-wide">Decision-Makers Only</h3>
-                <p className="text-zinc-400 text-lg leading-relaxed">Direct Emails and Cell Phones. Stop wasting cold calls and emails pitching to the front-desk secretary.</p>
+                <p className="text-zinc-400 text-lg leading-relaxed">Direct Emails and Cell Phones. Stop wasting time and outreach efforts pitching to the front-desk secretary.</p>
               </div>
 
               {/* Feature 3 */}

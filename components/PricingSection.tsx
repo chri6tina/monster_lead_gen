@@ -16,8 +16,8 @@ export function PricingSection({
     : <>Fuel Your New Business:<br/><span className="text-emerald-500 drop-shadow-[0_0_15px_rgba(16,185,129,0.3)]">Choose Your Arsenal</span></>;
     
   const subHeadingStr = formattedLocation && formattedNiche
-    ? `Select a highly-qualified cold lead package tailored for ${formattedNiche} professionals in ${formattedLocation}. Start dialing today.`
-    : `Select a highly-qualified cold lead package tailored to your target city and niche. Skip the games. Start dialing today.`;
+    ? `Select a highly-qualified prospect database tailored for ${formattedNiche} professionals in ${formattedLocation}. Start dialing today.`
+    : `Select a highly-qualified prospect database tailored to your target city and niche. Skip the games. Start dialing today.`;
 
   const btnTextStarter = cityName ? `Buy 50 ${cityName} Leads` : "Buy 50 Leads";
   const btnTextGrowth = cityName ? `Buy 100 ${cityName} Leads` : "Buy 100 Leads";
@@ -63,7 +63,7 @@ export function PricingSection({
               `100 Verified${featLocalTxt}`,
               "Direct Emails & Cell Phones",
               "CSV / Excel Format",
-              "Bonus: B2B Cold Calling Scripts"
+              "Bonus: B2B Outreach Scripts"
             ]}
             ctaText={btnTextGrowth}
             isPopular={true}
@@ -76,7 +76,7 @@ export function PricingSection({
               `200 Verified${featLocalTxt}`,
               "Direct Emails & Cell Phones",
               "CSV / Excel Format",
-              "Bonus: B2B Cold Calling Scripts",
+              "Bonus: B2B Outreach Scripts",
               "Bonus: Email Sequence Templates",
               "Bonus: CRM Lead Tracker Sheet"
             ]}

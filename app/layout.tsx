@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Lead Monster | B2B Cold Data Broker",
+  title: "Lead Monster | B2B Prospect Data Broker",
   description: "Download verified B2B prospect lists for your local territory. Get direct emails and cell phones to close more commercial contracts.",
 };
 

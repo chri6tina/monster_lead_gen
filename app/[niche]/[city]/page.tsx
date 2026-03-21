@@ -79,20 +79,8 @@ export default async function CityPage({ params }: { params: Promise<{ niche: st
   const infoParagraph = agentData?.infoParagraph || `Scaling a ${formattedNiche.toLowerCase()} business in ${cityName} requires speed and direct access. Stop paying for shared, low-converting homeowner leads. Purchase a static, manually-verified database of ${formattedLocation} B2B prospects and own your outreach pipeline forever.`;
 
   // Local Blogs Hook
-  const localBlogs = agentData?.blogs || [
-    { 
-      title: `How to Secure ${formattedNiche} Contracts in ${formattedLocation}`, 
-      excerpt: `Discover the exact outreach strategies and decision-maker scripts for closing commercial deals and scaling your growing agency in the ${cityName} area.`, 
-      date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
-      url: "#blog" 
-    },
-    { 
-      title: `Top 5 Lead Generation Mistakes ${formattedNiche} Businesses Make in ${stateAbbr || cityName}`, 
-      excerpt: `Avoid these costly errors when doing cold outreach to facility managers, offices, and decision makers in ${formattedLocation}.`, 
-      date: new Date(Date.now() - 86400000 * 3).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
-      url: "#blog" 
-    }
-  ];
+  // If no agent data exists, we leave this array blank to prevent displaying fake placeholder blogs.
+  const localBlogs = agentData?.blogs || [];
 
   // Target Audience Hook
   const targetAudienceHeading = agentData?.targetAudienceHeading || `Who Uses Our ${formattedLocation} Data?`;
@@ -205,7 +193,7 @@ export default async function CityPage({ params }: { params: Promise<{ niche: st
               <div className="bg-zinc-900 border border-zinc-800 rounded-3xl p-10 relative overflow-hidden h-full flex flex-col justify-center shadow-xl">
                  <div className="absolute top-0 right-0 w-64 h-64 bg-teal-500/10 rounded-full blur-[80px]"></div>
                  <h3 className="text-2xl font-black text-white mb-4 z-10">Stop Renting Traffic.</h3>
-                 <p className="text-zinc-400 z-10">Ads cost you money every time someone clicks. A static cold lead list costs you once. We&apos;ve done the heavy lifting of scraping, cleaning, and verifying {formattedNiche} prospects in {formattedLocation}. You just have to dial.</p>
+                 <p className="text-zinc-400 z-10">Ads cost you money every time someone clicks. A static prospect database costs you once. We&apos;ve done the heavy lifting of scraping, cleaning, and verifying {formattedNiche} prospects in {formattedLocation}. You just have to dial.</p>
               </div>
             </div>
           </div>
@@ -264,11 +252,11 @@ export default async function CityPage({ params }: { params: Promise<{ niche: st
               </div>
               <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-8 hover:border-emerald-500/30 transition-colors shadow-sm">
                 <h4 className="text-xl font-bold text-white mb-3">Is this data compliant with outreach laws?</h4>
-                <p className="text-zinc-400 leading-relaxed">Yes. Our records focus strictly on Business-to-Business (B2B) targets. Cold calling and cold emailing businesses is legal in the US (under CAN-SPAM laws) provided you honor opt-out requests and represent your {formattedNiche.toLowerCase()} business honestly.</p>
+                <p className="text-zinc-400 leading-relaxed">Yes. Our records focus strictly on Business-to-Business (B2B) targets. Direct outbound outreach to businesses is legal in the US (under CAN-SPAM laws) provided you honor opt-out requests and represent your {formattedNiche.toLowerCase()} business honestly.</p>
               </div>
               <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-8 hover:border-emerald-500/30 transition-colors shadow-sm">
                 <h4 className="text-xl font-bold text-white mb-3">How do I import this {formattedLocation} data?</h4>
-                <p className="text-zinc-400 leading-relaxed">Your targeted {formattedNiche.toLowerCase()} lists are delivered as standard CSV/Excel sheets. They are pre-formatted so you can instantly upload them into popular CRMs like GoHighLevel, HubSpot, Pipedrive, or mass cold email tools like Instantly and Woodpecker.</p>
+                <p className="text-zinc-400 leading-relaxed">Your targeted {formattedNiche.toLowerCase()} lists are delivered as standard CSV/Excel sheets. They are pre-formatted so you can instantly upload them into popular CRMs like GoHighLevel, HubSpot, Pipedrive, or mass outbound email tools like Instantly and Woodpecker.</p>
               </div>
               <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-8 hover:border-emerald-500/30 transition-colors shadow-sm">
                 <h4 className="text-xl font-bold text-white mb-3">Why shouldn't I just run Google Ads in {cityName}?</h4>
@@ -276,16 +264,17 @@ export default async function CityPage({ params }: { params: Promise<{ niche: st
               </div>
               <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-8 hover:border-emerald-500/30 transition-colors shadow-sm">
                 <h4 className="text-xl font-bold text-white mb-3">Can I use this list for direct mail campaigns?</h4>
-                <p className="text-zinc-400 leading-relaxed">Absolutely. Alongside direct email addresses and cell phones, our {formattedLocation} records feature the exact physical address of the business. Combining direct mail physical flyers with cold calling is an explosive multi-channel strategy.</p>
+                <p className="text-zinc-400 leading-relaxed">Absolutely. Alongside direct email addresses and cell phones, our {formattedLocation} records feature the exact physical address of the business. Combining direct mail physical flyers with phone outreach is an explosive multi-channel strategy.</p>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Local Insights & Articles (Blog Hub) */}
-        <section className="py-24 bg-zinc-950 border-t border-zinc-900 relative">
-          <div className="absolute right-0 top-1/2 -translate-y-1/2 w-96 h-96 bg-teal-500/5 rounded-full blur-[100px] pointer-events-none"></div>
-          <div className="container mx-auto px-6 max-w-5xl relative z-10">
+        {/* Local Insights & Articles (Blog Hub - Rendered Only if Blogs Exist) */}
+        {localBlogs.length > 0 && (
+          <section className="py-24 bg-zinc-950 border-t border-zinc-900 relative">
+            <div className="absolute right-0 top-1/2 -translate-y-1/2 w-96 h-96 bg-teal-500/5 rounded-full blur-[100px] pointer-events-none"></div>
+            <div className="container mx-auto px-6 max-w-5xl relative z-10">
             <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
               <div>
                 <h2 className="text-3xl md:text-5xl font-black text-white mb-4 uppercase tracking-tight">Local {cityName} Insights</h2>
@@ -316,12 +305,13 @@ export default async function CityPage({ params }: { params: Promise<{ niche: st
             </div>
           </div>
         </section>
+        )}
 
         {/* Sibling Cities / Nearby Markets */}
         <section className="py-24 bg-zinc-950 border-t border-zinc-900 relative overflow-hidden">
           <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-emerald-500/5 rounded-full blur-[100px] pointer-events-none"></div>
           <div className="container mx-auto px-6 relative z-10 max-w-6xl">
-            <h2 className="text-3xl font-black text-white mb-10 uppercase tracking-tight text-center">Dominate More {stateAbbr ? `${stateAbbr} ` : ''}Markets</h2>
+            <h2 className="text-3xl font-black text-white mb-10 uppercase tracking-tight text-center">Dominate More Top-Tier Markets</h2>
             <div className="flex flex-wrap justify-center gap-4">
               {[
                 { name: "Atlanta, GA", slug: "atlanta-ga" },
