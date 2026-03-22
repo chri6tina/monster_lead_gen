@@ -3,9 +3,11 @@ import { createClient } from '@supabase/supabase-js';
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
 
+const isValidUrl = supabaseUrl.startsWith('https://');
+
 // Create a single supabase client for interacting with your database
 // Provide warnings if keys are missing from .env
-export const supabase = supabaseUrl && supabaseAnonKey
+export const supabase = supabaseUrl && supabaseAnonKey && isValidUrl
   ? createClient(supabaseUrl, supabaseAnonKey)
   : null;
 
