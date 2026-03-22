@@ -133,24 +133,83 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
         {/* Article Content Matrix */}
         <section className="py-20 bg-zinc-950 relative z-10">
-          <div className="container mx-auto px-6 max-w-3xl">
-            {/* The actual HTML injected by the AI Agent */}
-            <article 
-              className="prose prose-invert prose-emerald max-w-none prose-headings:font-black prose-headings:tracking-tight prose-headings:uppercase prose-p:text-zinc-400 prose-p:leading-relaxed prose-p:text-lg prose-a:text-emerald-400 prose-li:text-zinc-400 prose-strong:text-zinc-200"
-              dangerouslySetInnerHTML={{ __html: data.content }} 
-            />
+          <div className="container mx-auto px-6 max-w-5xl flex flex-col lg:flex-row gap-16">
             
-            {/* In-Line CTA matching exact Niche/City mappings */}
-            <div className="mt-20 pt-16 border-t border-zinc-900 flex flex-col items-center justify-center text-center">
-               <div className="w-16 h-16 bg-zinc-900 border border-zinc-800 rounded-full flex items-center justify-center mb-6 shadow-xl text-emerald-400">
-                  <ArrowRight className="w-8 h-8" />
-               </div>
-               <h3 className="text-3xl font-black text-white mb-4 uppercase tracking-tighter">Ready to Deploy This Strategy?</h3>
-               <p className="text-zinc-400 max-w-md mx-auto mb-8">Stop researching and start dialing. We have hundreds of verified Outbound B2B databases ready for immediate download.</p>
-               <Link href={ctaLink} className="inline-block px-10 py-5 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-zinc-950 rounded-full font-black uppercase tracking-widest text-sm shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:-translate-y-1 transition-all">
-                 View {data.targetCity ? 'Local' : 'Available'} Prospects
-               </Link>
+            {/* Main Article Content */}
+            <div className="flex-1 w-full lg:max-w-3xl">
+              
+              {/* Executive Summary Agent Container */}
+              <div className="bg-emerald-900/10 border border-emerald-500/20 rounded-2xl p-8 mb-16 shadow-[0_0_30px_rgba(16,185,129,0.05)]">
+                <h3 className="text-emerald-400 font-black uppercase text-xs tracking-widest mb-4 flex items-center gap-2">
+                   <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div> Executive Summary
+                </h3>
+                <p className="text-zinc-300 leading-relaxed font-medium text-lg">&quot;{data.excerpt}&quot;</p>
+              </div>
+
+              {/* The actual HTML injected by the AI Agent */}
+              {/* Complex descendant selectors handle spacing natively without Typography Plugin */}
+              <article 
+                className="max-w-none text-zinc-300 leading-[1.9] tracking-wide 
+                  [&>p]:mb-10 [&>p]:text-lg
+                  [&>h2]:text-3xl lg:[&>h2]:text-4xl [&>h2]:font-black [&>h2]:text-white [&>h2]:uppercase [&>h2]:mb-8 [&>h2]:mt-20 [&>h2]:tracking-tight
+                  [&>h3]:text-2xl [&>h3]:font-black [&>h3]:text-zinc-100 [&>h3]:mb-6 [&>h3]:mt-16 [&>h3]:tracking-tight
+                  [&>ul]:mb-12 [&>ul]:list-none [&>ul]:pl-0 [&>ul>li]:mb-4 [&>ul>li]:pl-6 [&>ul>li]:relative [&>ul>li]:text-lg
+                  [&>ul>li::before]:content-[''] [&>ul>li::before]:absolute [&>ul>li::before]:left-0 [&>ul>li::before]:top-3 [&>ul>li::before]:w-2 [&>ul>li::before]:h-2 [&>ul>li::before]:bg-emerald-500 [&>ul>li::before]:rounded-full
+                  [&>ol]:mb-12 [&>ol]:list-decimal [&>ol]:pl-6 [&>ol>li]:mb-4 [&>ol>li]:text-lg [&>ol>li]:pl-2 marker:[&>ol>li]:text-emerald-500 marker:[&>ol>li]:font-black
+                  [&>strong]:text-white [&>strong]:font-bold 
+                  [&>blockquote]:border-l-4 [&>blockquote]:border-emerald-500 [&>blockquote]:pl-6 [&>blockquote]:italic [&>blockquote]:text-emerald-400/80 [&>blockquote]:mb-10 [&>blockquote]:text-xl
+                  [&>a]:text-emerald-400 [&>a]:underline [&>a]:underline-offset-4 hover:[&>a]:text-emerald-300 transition-colors"
+                dangerouslySetInnerHTML={{ __html: data.content }} 
+              />
+              
+              {/* In-Line CTA matching exact Niche/City mappings */}
+              <div className="mt-24 pt-16 border-t border-zinc-900 flex flex-col items-center justify-center text-center bg-zinc-900/30 rounded-3xl p-12">
+                 <div className="w-16 h-16 bg-zinc-900 border border-zinc-800 rounded-full flex items-center justify-center mb-6 shadow-xl text-emerald-400 hover:scale-110 transition-transform cursor-default">
+                    <ArrowRight className="w-8 h-8" />
+                 </div>
+                 <h3 className="text-3xl font-black text-white mb-4 uppercase tracking-tighter">Ready to Deploy This Strategy?</h3>
+                 <p className="text-zinc-400 max-w-md mx-auto mb-8 leading-relaxed">Stop manually researching and start dialing. We have verified {data.targetNiche ? data.targetNiche.replace(/-/g, ' ') : 'Outbound B2B'} prospect databases ready for immediate download.</p>
+                 <Link href={ctaLink} className="inline-block px-10 py-5 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-zinc-950 rounded-full font-black uppercase tracking-widest text-sm shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:-translate-y-1 transition-all">
+                   View {data.targetCity ? 'Local' : 'Available'} Prospects
+                 </Link>
+              </div>
             </div>
+
+            {/* Sidebar (Author / Metadata Engine) */}
+            <div className="hidden lg:block w-[320px] shrink-0">
+               <div className="sticky top-32">
+                 <div className="bg-zinc-900 border border-zinc-800 rounded-3xl p-8 mb-8 shadow-2xl relative overflow-hidden">
+                   <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/10 rounded-full blur-[40px] pointer-events-none"></div>
+                   
+                   <h4 className="text-xs uppercase font-black tracking-widest text-zinc-500 mb-6">Agent Insight</h4>
+                   <div className="flex items-center gap-4 mb-6">
+                      <div className="w-12 h-12 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shrink-0">
+                        <User className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <div className="font-bold text-white text-sm uppercase tracking-wider">{data.author || 'Intelligence Div.'}</div>
+                        <div className="text-xs text-zinc-500 uppercase tracking-widest mt-1">Lead Monster</div>
+                      </div>
+                   </div>
+                   
+                   <div className="space-y-4 mb-8">
+                     <div className="p-4 bg-zinc-950 rounded-2xl border border-zinc-800">
+                       <span className="block text-[10px] uppercase font-bold tracking-widest text-emerald-500 mb-1">Target Sector</span>
+                       <span className="text-sm font-bold text-zinc-300 capitalize">{data.targetNiche ? data.targetNiche.replace(/-/g, ' ') : 'General Strategy'}</span>
+                     </div>
+                     <div className="p-4 bg-zinc-950 rounded-2xl border border-zinc-800">
+                       <span className="block text-[10px] uppercase font-bold tracking-widest text-emerald-500 mb-1">Market Analysis</span>
+                       <span className="text-sm font-bold text-zinc-300 capitalize">{data.targetCity ? data.targetCity.replace(/-/g, ' ') : 'National Level'}</span>
+                     </div>
+                   </div>
+
+                   <Link href={ctaLink} className="flex items-center justify-center gap-2 w-full py-4 bg-zinc-800 hover:bg-emerald-500 text-white hover:text-zinc-950 transition-colors rounded-xl font-bold text-xs uppercase tracking-widest group">
+                     Take Action <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                   </Link>
+                 </div>
+               </div>
+            </div>
+
           </div>
         </section>
       </main>
