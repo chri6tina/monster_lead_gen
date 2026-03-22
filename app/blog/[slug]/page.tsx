@@ -153,12 +153,19 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                   [&>p]:mb-10 [&>p]:text-lg
                   [&>h2]:text-3xl lg:[&>h2]:text-4xl [&>h2]:font-black [&>h2]:text-white [&>h2]:uppercase [&>h2]:mb-8 [&>h2]:mt-20 [&>h2]:tracking-tight
                   [&>h3]:text-2xl [&>h3]:font-black [&>h3]:text-zinc-100 [&>h3]:mb-6 [&>h3]:mt-16 [&>h3]:tracking-tight
+                  [&>h4]:text-xl [&>h4]:font-bold [&>h4]:text-emerald-400 [&>h4]:mb-4 [&>h4]:mt-10
                   [&>ul]:mb-12 [&>ul]:list-none [&>ul]:pl-0 [&>ul>li]:mb-4 [&>ul>li]:pl-6 [&>ul>li]:relative [&>ul>li]:text-lg
                   [&>ul>li::before]:content-[''] [&>ul>li::before]:absolute [&>ul>li::before]:left-0 [&>ul>li::before]:top-3 [&>ul>li::before]:w-2 [&>ul>li::before]:h-2 [&>ul>li::before]:bg-emerald-500 [&>ul>li::before]:rounded-full
                   [&>ol]:mb-12 [&>ol]:list-decimal [&>ol]:pl-6 [&>ol>li]:mb-4 [&>ol>li]:text-lg [&>ol>li]:pl-2 marker:[&>ol>li]:text-emerald-500 marker:[&>ol>li]:font-black
                   [&>strong]:text-white [&>strong]:font-bold 
                   [&>blockquote]:border-l-4 [&>blockquote]:border-emerald-500 [&>blockquote]:pl-6 [&>blockquote]:italic [&>blockquote]:text-emerald-400/80 [&>blockquote]:mb-10 [&>blockquote]:text-xl
-                  [&>a]:text-emerald-400 [&>a]:underline [&>a]:underline-offset-4 hover:[&>a]:text-emerald-300 transition-colors"
+                  [&>a]:text-emerald-400 [&>a]:underline [&>a]:underline-offset-4 hover:[&>a]:text-emerald-300 transition-colors
+                  [&>img]:rounded-2xl [&>img]:mb-10 [&>img]:border [&>img]:border-zinc-800 [&>img]:shadow-2xl [&>img]:w-full
+                  [&>figure]:mb-12 [&>figure>img]:rounded-2xl [&>figure>img]:border [&>figure>img]:border-zinc-800 [&>figure>img]:w-full [&>figure>figcaption]:text-center [&>figure>figcaption]:text-sm [&>figure>figcaption]:text-zinc-500 [&>figure>figcaption]:mt-4 [&>figure>figcaption]:italic
+                  [&>table]:w-full [&>table]:mb-12 [&>table]:border-collapse [&>table]:text-sm [&>table]:text-left
+                  [&>table_th]:bg-zinc-900 [&>table_th]:text-white [&>table_th]:font-bold [&>table_th]:uppercase [&>table_th]:p-4 [&>table_th]:border [&>table_th]:border-zinc-800
+                  [&>table_td]:p-4 [&>table_td]:border [&>table_td]:border-zinc-800 [&>table_td]:text-zinc-400
+                  [&>svg]:w-full [&>svg]:h-auto [&>svg]:mb-10 [&>svg]:bg-zinc-900 [&>svg]:rounded-2xl [&>svg]:p-6 [&>svg]:border [&>svg]:border-zinc-800"
                 dangerouslySetInnerHTML={{ __html: data.content }} 
               />
               
