@@ -6,7 +6,13 @@ This document outlines the hierarchical Multi-Agent System (MAS) designed for sc
 
 ## 🏗 System Hierarchy Overview
 
-The bot network operates in a strict 3-tier hierarchy. Information flows down (commands, goals) and flows up (learnings, data, metrics).
+The bot network operates in a strict 4-tier hierarchy. Information flows down (commands, goals) and flows up (learnings, data, metrics).
+
+### Tier 0: Business Intelligence (Macro Strategy)
+- **The Growth Hacker Bot (The Expansionist)**
+  - **Role:** Corporate Futurist & SEO Algorithm Specialist.
+  - **Purpose:** Discovers massive new B2B industries with low competition and analyzes broad Google algorithm changes.
+  - **Key Function:** Sends weekly Business Intelligence (BI) reports to the CEO detailing predicted SEO shifts, macroeconomic B2B trends, and the exact "Niche Slugs" the factory should target next.
 
 ### Tier 1: The Overseer Bot (The Node Hub)
 - **Role:** The Grandmaster / Central Intelligence Hub
@@ -77,5 +83,22 @@ Underneath *each* Industry Manager Bot operates a squad of specialized worker bo
 - [ ] **Build the A/B Testing Bot**
 
 ### Phase 4: Cross-Pollination (The Hub Activates)
-- [ ] **Deploy Additional Industries:** Roll out bots for your other lead generation verticals.
-- [ ] **Activate Overseer Review Cycles**
+- [x] **Deploy Additional Industries:** Roll out bots for your other lead generation verticals.
+- [x] **Activate Overseer Review Cycles**
+
+---
+
+## ⏰ The Master Cron Schedule (Deployment Timing)
+This is the schedule for when your bots automatically wake up and execute their jobs. It is designed to run in the middle of the night (EST) to avoid interfering with peak human web traffic.
+
+- **02:00 AM (DAILY): The Orchestrator Loop**
+  - **Bots Firing:** Overseer &rarr; Managers &rarr; SEO Bots &rarr; Blog/City Bots
+  - **Action:** Generates your daily throttle limit (starting at 2 to 4 pages per industry) and pushes HTML directly to Supabase so it ranks by morning.
+  
+- **04:00 AM (SUNDAYS): The A/B Testing Review**
+  - **Bots Firing:** A/B Testing Optimizer
+  - **Action:** Reads the Stripe Conversion Rate and Bounce Rate from the previous week's traffic. Sends an optimization order for Monday morning.
+
+- **06:00 AM (1st OF THE MONTH): The Executive Board Meeting**
+  - **Bots Firing:** The Growth Hacker (Expansionist)
+  - **Action:** Loads the 4 previous weeks' memory. Aggressively scrutinizes past ideas to predict Google spam updates. Formally recommends expanding to new low-cost hustles (or demands zero expansion to protect focus).
