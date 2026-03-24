@@ -50,8 +50,8 @@ export function PricingSection({
             price={`$${PRICE_STARTER}`}
             features={[
               `50 Verified${featLocalTxt}`,
-              "Direct Emails & Phone Numbers",
-              "CSV / Excel Format"
+              "Bypass Gatekeeper Contact Info",
+              "Instant CRM-Ready Download"
             ]}
             ctaText={btnTextStarter}
             isPopular={false}
@@ -64,9 +64,9 @@ export function PricingSection({
             price={`$${PRICE_GROWTH}`}
             features={[
               `100 Verified${featLocalTxt}`,
-              "Direct Emails & Phone Numbers",
-              "CSV / Excel Format",
-              "Bonus: B2B Outreach Scripts"
+              "Bypass Gatekeeper Contact Info",
+              "Instant CRM-Ready Download",
+              "Bonus: High-Converting Sales Scripts"
             ]}
             ctaText={btnTextGrowth}
             isPopular={true}
@@ -79,11 +79,11 @@ export function PricingSection({
             price={`$${PRICE_DOMINATION}`}
             features={[
               `200 Verified${featLocalTxt}`,
-              "Direct Emails & Phone Numbers",
-              "CSV / Excel Format",
-              "Bonus: B2B Outreach Scripts",
-              "Bonus: Email Sequence Templates",
-              "Bonus: CRM Lead Tracker Sheet"
+              "Bypass Gatekeeper Contact Info",
+              "Instant CRM-Ready Download",
+              "Bonus: High-Converting Sales Scripts",
+              "Bonus: 30-Day Drip Sequence Blueprints",
+              "Bonus: Automated Lead Pipeline Tracker"
             ]}
             ctaText={btnTextDom}
             isPopular={false}
@@ -169,8 +169,8 @@ export function PricingSection({
 
             {/* Row 2: Basic Lead Details */}
             <div className="px-6 py-5 border-b border-zinc-800 flex flex-col justify-center bg-zinc-950/40">
-              <h4 className="text-sm font-bold text-white mb-0.5">Basic Lead Details</h4>
-              <p className="text-[11px] text-zinc-500 font-medium leading-relaxed">Business name, phone, address, & direct email.</p>
+              <h4 className="text-sm font-bold text-white mb-0.5">Gatekeeper Bypass Data</h4>
+              <p className="text-[11px] text-zinc-500 font-medium leading-relaxed">Direct decision-maker emails, verified phone numbers, and precise coordinates.</p>
             </div>
             <div className="px-6 py-5 border-b border-l border-zinc-800 flex items-center justify-center text-center bg-zinc-950/40">
               <CheckCircle2 className="h-5 w-5 text-emerald-500" /><span className="ml-2 font-bold text-zinc-300 text-sm">Included</span>
@@ -184,8 +184,8 @@ export function PricingSection({
 
             {/* Row 3: Outreach Process */}
             <div className="px-6 py-5 border-b border-zinc-800 flex flex-col justify-center bg-zinc-950/40">
-              <h4 className="text-sm font-bold text-white mb-0.5">Outreach Scripts</h4>
-              <p className="text-[11px] text-zinc-500 font-medium leading-relaxed">Proven B2B templates to bypass gatekeepers.</p>
+              <h4 className="text-sm font-bold text-white mb-0.5">Cold-Outreach Arsenal</h4>
+              <p className="text-[11px] text-zinc-500 font-medium leading-relaxed">Plug-and-play sales scripts designed to convert cold B2B prospects.</p>
             </div>
             <div className="px-6 py-5 border-b border-l border-zinc-800 flex items-center justify-center text-center text-zinc-800 bg-zinc-950/40">
               <X className="h-5 w-5" />
@@ -199,8 +199,8 @@ export function PricingSection({
 
             {/* Row 4: Email Tracking & Automation */}
             <div className="px-6 py-5 border-zinc-800 flex flex-col justify-center bg-zinc-950/40">
-              <h4 className="text-sm font-bold text-white mb-0.5">Follow-up CRM</h4>
-              <p className="text-[11px] text-zinc-500 font-medium leading-relaxed">Email sequences and a CRM spreadsheet for tracking.</p>
+              <h4 className="text-sm font-bold text-white mb-0.5">Pipeline Management Systems</h4>
+              <p className="text-[11px] text-zinc-500 font-medium leading-relaxed">Pre-built 30-day follow-up drips and pipeline tracking grids.</p>
             </div>
             <div className="px-6 py-5 border-l border-zinc-800 flex items-center justify-center text-center text-zinc-800 bg-zinc-950/40">
               <X className="h-5 w-5" />
