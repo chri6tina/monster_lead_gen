@@ -108,7 +108,7 @@ export class BlogBot {
         this.botName, 
         this.industryName, 
         'REPORT', 
-        `✅ Blog Generated & Pushed to Live Database!\n\n🔗 *Review URL:* [leadmonster.com/blog/${blogData.slug}](https://your-domain.com/blog/${blogData.slug})`, 
+        `✅ Blog Generated & Pushed to Live Database!\n\n🔗 *Review URL:* [monsterleadgen.com/blog/${blogData.slug}](https://www.monsterleadgen.com/blog/${blogData.slug})`, 
         { "Length": blogData.content.length }
       );
 

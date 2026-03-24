@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next';
 import { supabaseAdmin } from "@/lib/supabaseAdmin";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.leadmonster.com';
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.monsterleadgen.com';
 
   // 1. Global Static Routes
   const staticRoutes: MetadataRoute.Sitemap = [

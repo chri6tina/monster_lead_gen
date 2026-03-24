@@ -108,7 +108,7 @@ export class CityPagesBot {
         this.botName, 
         this.industryName, 
         'REPORT', 
-        `✅ City Page Generated & Pushed to Live Database!\n\nReview URL: https://leadmonster.com/${this.nicheSlug}/${targetCitySlug}`, 
+        `✅ City Page Generated & Pushed to Live Database!\n\nReview URL: https://www.monsterleadgen.com/${this.nicheSlug}/${targetCitySlug}`, 
         { "Content Depth": "Heavy", "FAQs Count": cityData.faqs.length }
       );
 

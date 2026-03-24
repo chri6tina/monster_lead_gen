@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://www.leadmonster.com'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://www.monsterleadgen.com'),
   title: "Lead Monster | B2B Prospect Data Broker",
   description: "Download verified B2B prospect lists for your local territory. Get direct emails and phone numbers to close more commercial contracts.",
   verification: {

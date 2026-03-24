@@ -14,7 +14,7 @@ export class IndexerBot {
   botName: string;
 
   constructor() {
-    this.websiteDomain = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.leadmonster.com';
+    this.websiteDomain = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.monsterleadgen.com';
     this.botName = 'Sitemap Indexer Bot';
   }
 
