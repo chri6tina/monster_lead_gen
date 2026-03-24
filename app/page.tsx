@@ -65,10 +65,10 @@ export default function Home() {
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
               <Link 
-                href="#marketplace" 
+                href="#pricing" 
                 className="w-full sm:w-auto px-8 py-5 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-zinc-950 rounded-full font-black text-lg transition-all shadow-[0_0_30px_rgba(16,185,129,0.3)] hover:shadow-[0_0_40px_rgba(16,185,129,0.5)] flex items-center justify-center gap-3 uppercase tracking-wider hover:-translate-y-1"
               >
-                Shop Niche Marketplace <ShoppingCart className="h-6 w-6" />
+                Pricing <ShoppingCart className="h-6 w-6" />
               </Link>
               <Link 
                 href="#request" 
