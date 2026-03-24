@@ -32,16 +32,14 @@ export default function Home() {
             </span>
           </Link>
           <div className="hidden md:flex items-center gap-8 text-sm font-bold text-zinc-400">
-            <Link href="#marketplace" className="hover:text-emerald-400 transition-colors uppercase tracking-wide">List Marketplace</Link>
-            <Link href="#request" className="hover:text-emerald-400 transition-colors uppercase tracking-wide">Request Custom City</Link>
             <Link href="#how-it-works" className="hover:text-emerald-400 transition-colors uppercase tracking-wide">How it Works</Link>
           </div>
           <div className="flex items-center">
             <Link 
-              href="#marketplace" 
+              href="#pricing" 
               className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-zinc-950 px-6 py-2.5 rounded-full font-black transition-all shadow-[0_0_15px_rgba(16,185,129,0.4)] hover:shadow-[0_0_25px_rgba(16,185,129,0.6)] flex items-center gap-2 uppercase text-sm tracking-wide"
             >
-              Shop All Lists <ShoppingCart className="h-4 w-4" />
+              Pricing <ShoppingCart className="h-4 w-4" />
             </Link>
           </div>
         </div>
