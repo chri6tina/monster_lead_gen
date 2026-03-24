@@ -72,9 +72,9 @@ export default function Home() {
               </Link>
               <Link 
                 href="#request" 
-                className="w-full sm:w-auto px-8 py-5 bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-700 hover:border-zinc-500 rounded-full font-bold text-lg text-white transition-all flex items-center justify-center gap-3 backdrop-blur-sm hover:-translate-y-1 uppercase tracking-wider"
+                className="group w-full sm:w-auto px-8 py-5 bg-zinc-800/80 hover:bg-zinc-700 border border-zinc-600 hover:border-zinc-400 rounded-full font-bold text-lg text-zinc-100 hover:text-white transition-all flex items-center justify-center gap-3 backdrop-blur-sm hover:-translate-y-1 uppercase tracking-wider"
               >
-                Request Custom Data <Search className="h-6 w-6 text-zinc-400" />
+                Request Custom Data <Search className="h-6 w-6 text-zinc-300 group-hover:text-white transition-colors" />
               </Link>
             </div>
           </div>
