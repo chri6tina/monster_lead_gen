@@ -36,9 +36,11 @@ export async function generateMetadata({ params }: { params: Promise<{ niche: st
 
   return {
     title: `Buy ${formattedNiche} Leads in ${formattedLocation} | Lead Monster`,
-    description: `Download verified B2B contact lists for ${formattedNiche} prospects in ${formattedLocation}. Get direct emails and cell phones to close commercial contracts.`,
+    description: `Download verified B2B contact lists for ${formattedNiche} prospects in ${formattedLocation}. Get direct emails and phone numbers to close commercial contracts.`,
   };
 }
+
+export const revalidate = 86400; // Force ISR: Required to scale 40,000+ localized pages without choking the database
 
 // Server Component for dynamic routes in Next.js App Router (App router uses `params` as a Promise in Next.js 15+)
 // Note: Depending on Next.js exact version, params is either a promise (Next.js 15+) or an object (Next.js 14-). Since we're using latest app router (Next.js 15+ convention), let's await it.
@@ -96,7 +98,7 @@ export default async function CityPage({ params }: { params: Promise<{ niche: st
 
   // SEO Optimized Fallbacks (Long-Tail Focus)
   const heroHeadline = agentData?.heroHeadline || `Dominate The ${formattedLocation} ${formattedNiche} Market.`;
-  const heroSub = agentData?.heroSub || `Buy verified ${formattedNiche.toLowerCase()} leads in ${formattedLocation}. Access direct emails, cell phones, and facility decision-makers instantly to secure top-tier commercial contracts without wasting ad spend.`;
+  const heroSub = agentData?.heroSub || `Buy verified ${formattedNiche.toLowerCase()} leads in ${formattedLocation}. Access direct emails, phone numbers, and facility decision-makers instantly to secure top-tier commercial contracts without wasting ad spend.`;
   const infoHeading = agentData?.infoHeading || `Why Buy Exclusive ${formattedLocation} ${formattedNiche} Leads?`;
   const infoParagraph = agentData?.infoParagraph || `Scaling a ${formattedNiche.toLowerCase()} business in ${cityName} requires speed and direct access. Stop paying for shared, low-converting homeowner leads. Purchase a static, manually-verified database of ${formattedLocation} B2B prospects and own your outreach pipeline forever.`;
 
@@ -207,7 +209,7 @@ export default async function CityPage({ params }: { params: Promise<{ niche: st
                     <div className="bg-emerald-500/10 p-2 rounded-lg mt-1"><UserCheck className="h-5 w-5 text-emerald-400" /></div>
                     <div>
                       <h4 className="text-lg font-bold text-white mb-1">{agentData?.feat2Title || "Direct to Decision-Makers"}</h4>
-                      <p className="text-zinc-500 text-sm">{agentData?.feat2Desc || `Bypass gatekeepers using verified cell phones and direct email addresses of ${cityName} business owners and facility managers.`}</p>
+                      <p className="text-zinc-500 text-sm">{agentData?.feat2Desc || `Bypass gatekeepers using verified phone numbers and direct email addresses of ${cityName} business owners and facility managers.`}</p>
                     </div>
                   </li>
                 </ul>
@@ -266,7 +268,7 @@ export default async function CityPage({ params }: { params: Promise<{ niche: st
               </div>
               <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-8 hover:border-emerald-500/30 transition-colors cursor-default">
                 <h4 className="text-xl font-bold text-white mb-3">How accurate is the contact data?</h4>
-                <p className="text-zinc-400 leading-relaxed">We use premium aggregation and manual scraping verification to ensure high delivery rates for direct emails and cell phones. We constantly refresh the {cityName} database.</p>
+                <p className="text-zinc-400 leading-relaxed">We use premium aggregation and manual scraping verification to ensure high delivery rates for direct emails and phone numbers. We constantly refresh the {cityName} database.</p>
               </div>
               <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-8 hover:border-emerald-500/30 transition-colors cursor-default">
                 <h4 className="text-xl font-bold text-white mb-3">What if contacts have bounced or moved on?</h4>
@@ -286,7 +288,7 @@ export default async function CityPage({ params }: { params: Promise<{ niche: st
               </div>
               <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-8 hover:border-emerald-500/30 transition-colors shadow-sm">
                 <h4 className="text-xl font-bold text-white mb-3">Can I use this list for direct mail campaigns?</h4>
-                <p className="text-zinc-400 leading-relaxed">Absolutely. Alongside direct email addresses and cell phones, our {formattedLocation} records feature the exact physical address of the business. Combining direct mail physical flyers with phone outreach is an explosive multi-channel strategy.</p>
+                <p className="text-zinc-400 leading-relaxed">Absolutely. Alongside direct email addresses and phone numbers, our {formattedLocation} records feature the exact physical address of the business. Combining direct mail physical flyers with phone outreach is an explosive multi-channel strategy.</p>
               </div>
             </div>
           </div>

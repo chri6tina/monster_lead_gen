@@ -1,4 +1,5 @@
 import { CheckCircle2, ChevronRight, X } from "lucide-react";
+import { createCheckoutSession } from "@/app/actions/checkout";
 
 interface PricingSectionProps {
   cityName?: string;
@@ -49,11 +50,13 @@ export function PricingSection({
             price={`$${PRICE_STARTER}`}
             features={[
               `50 Verified${featLocalTxt}`,
-              "Direct Emails & Cell Phones",
+              "Direct Emails & Phone Numbers",
               "CSV / Excel Format"
             ]}
             ctaText={btnTextStarter}
             isPopular={false}
+            cityName={cityName}
+            formattedNiche={formattedNiche}
           />
           <PricingCard 
             title="Growth"
@@ -61,12 +64,14 @@ export function PricingSection({
             price={`$${PRICE_GROWTH}`}
             features={[
               `100 Verified${featLocalTxt}`,
-              "Direct Emails & Cell Phones",
+              "Direct Emails & Phone Numbers",
               "CSV / Excel Format",
               "Bonus: B2B Outreach Scripts"
             ]}
             ctaText={btnTextGrowth}
             isPopular={true}
+            cityName={cityName}
+            formattedNiche={formattedNiche}
           />
           <PricingCard 
             title="Domination"
@@ -74,7 +79,7 @@ export function PricingSection({
             price={`$${PRICE_DOMINATION}`}
             features={[
               `200 Verified${featLocalTxt}`,
-              "Direct Emails & Cell Phones",
+              "Direct Emails & Phone Numbers",
               "CSV / Excel Format",
               "Bonus: B2B Outreach Scripts",
               "Bonus: Email Sequence Templates",
@@ -82,6 +87,8 @@ export function PricingSection({
             ]}
             ctaText={btnTextDom}
             isPopular={false}
+            cityName={cityName}
+            formattedNiche={formattedNiche}
           />
         </div>
 
@@ -99,7 +106,14 @@ export function PricingSection({
                 <span className="text-lg font-bold text-zinc-500">$</span>
                 <span className="text-4xl font-black text-white">{PRICE_STARTER}</span>
               </div>
-              <button className="w-full px-4 py-3 rounded-lg border border-zinc-700 bg-zinc-800 hover:bg-zinc-700 text-white font-black text-xs uppercase tracking-widest transition-colors flex items-center justify-center gap-2 shadow-sm">Select <ChevronRight className="w-3.5 h-3.5"/></button>
+              <form action={createCheckoutSession} className="w-full">
+                <input type="hidden" name="planName" value="Starter" />
+                <input type="hidden" name="priceAmount" value={PRICE_STARTER} />
+                <input type="hidden" name="leadCount" value="50" />
+                <input type="hidden" name="cityName" value={cityName || ""} />
+                <input type="hidden" name="nicheName" value={formattedNiche || ""} />
+                <button type="submit" className="w-full px-4 py-3 rounded-lg border border-zinc-700 bg-zinc-800 hover:bg-zinc-700 text-white font-black text-xs uppercase tracking-widest transition-colors flex items-center justify-center gap-2 shadow-sm">Select <ChevronRight className="w-3.5 h-3.5"/></button>
+              </form>
             </div>
             
             <div className="p-6 border-b border-l border-zinc-800 text-center bg-emerald-950/10 flex flex-col items-center justify-center relative pt-12 group">
@@ -111,7 +125,14 @@ export function PricingSection({
                   <span className="text-lg font-bold text-zinc-500">$</span>
                   <span className="text-4xl font-black text-white">{PRICE_GROWTH}</span>
                 </div>
-                <button className="w-full px-4 py-3 rounded-lg bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-zinc-950 font-black text-xs uppercase tracking-widest transition-all hover:-translate-y-0.5 shadow-[0_0_15px_rgba(16,185,129,0.2)] flex items-center justify-center gap-2">Select <ChevronRight className="w-3.5 h-3.5"/></button>
+                <form action={createCheckoutSession} className="w-full">
+                  <input type="hidden" name="planName" value="Growth" />
+                  <input type="hidden" name="priceAmount" value={PRICE_GROWTH} />
+                  <input type="hidden" name="leadCount" value="100" />
+                  <input type="hidden" name="cityName" value={cityName || ""} />
+                  <input type="hidden" name="nicheName" value={formattedNiche || ""} />
+                  <button type="submit" className="w-full px-4 py-3 rounded-lg bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-zinc-950 font-black text-xs uppercase tracking-widest transition-all hover:-translate-y-0.5 shadow-[0_0_15px_rgba(16,185,129,0.2)] flex items-center justify-center gap-2">Select <ChevronRight className="w-3.5 h-3.5"/></button>
+                </form>
               </div>
             </div>
             
@@ -121,7 +142,14 @@ export function PricingSection({
                 <span className="text-lg font-bold text-zinc-500">$</span>
                 <span className="text-4xl font-black text-white">{PRICE_DOMINATION}</span>
               </div>
-              <button className="w-full px-4 py-3 rounded-lg border border-zinc-700 bg-zinc-800 hover:bg-zinc-700 text-white font-black text-xs uppercase tracking-widest transition-colors flex items-center justify-center gap-2 shadow-sm">Select <ChevronRight className="w-3.5 h-3.5"/></button>
+              <form action={createCheckoutSession} className="w-full">
+                <input type="hidden" name="planName" value="Domination" />
+                <input type="hidden" name="priceAmount" value={PRICE_DOMINATION} />
+                <input type="hidden" name="leadCount" value="200" />
+                <input type="hidden" name="cityName" value={cityName || ""} />
+                <input type="hidden" name="nicheName" value={formattedNiche || ""} />
+                <button type="submit" className="w-full px-4 py-3 rounded-lg border border-zinc-700 bg-zinc-800 hover:bg-zinc-700 text-white font-black text-xs uppercase tracking-widest transition-colors flex items-center justify-center gap-2 shadow-sm">Select <ChevronRight className="w-3.5 h-3.5"/></button>
+              </form>
             </div>
 
             {/* Row 1: Number of Leads */}
@@ -197,7 +225,9 @@ function PricingCard({
   price, 
   features, 
   ctaText, 
-  isPopular 
+  isPopular,
+  cityName,
+  formattedNiche 
 }: { 
   title: string; 
   leadCount: string; 
@@ -205,7 +235,11 @@ function PricingCard({
   features: string[]; 
   ctaText: string; 
   isPopular?: boolean; 
+  cityName?: string;
+  formattedNiche?: string;
 }) {
+  const parsedPrice = price.replace('$', '');
+
   return (
     <div className={`bg-zinc-900 border rounded-[2rem] overflow-hidden transition-all duration-300 flex flex-col group relative ${isPopular ? 'border-emerald-500 shadow-[0_0_40px_rgba(16,185,129,0.2)] lg:-translate-y-4' : 'border-zinc-800 hover:border-emerald-500/50 hover:shadow-[0_20px_50px_rgba(16,185,129,0.1)]'}`}>
       {isPopular && (
@@ -244,9 +278,16 @@ function PricingCard({
         </div>
         
         <div className="pt-8 border-t border-zinc-800 mt-auto">
-          <button className={`w-full px-8 py-5 rounded-xl font-black transition-all flex items-center justify-center gap-2 uppercase tracking-wider text-sm ${isPopular ? 'bg-gradient-to-r from-emerald-500 to-teal-400 text-zinc-950 hover:shadow-[0_0_20px_rgba(16,185,129,0.4)] hover:brightness-110' : 'bg-zinc-800 text-white hover:bg-emerald-500 hover:text-zinc-950'}`}>
-            {ctaText} <ChevronRight className="h-5 w-5" />
-          </button>
+          <form action={createCheckoutSession} className="w-full">
+            <input type="hidden" name="planName" value={title} />
+            <input type="hidden" name="priceAmount" value={parsedPrice} />
+            <input type="hidden" name="leadCount" value={leadCount} />
+            <input type="hidden" name="cityName" value={cityName || ""} />
+            <input type="hidden" name="nicheName" value={formattedNiche || ""} />
+            <button type="submit" className={`w-full px-8 py-5 rounded-xl font-black transition-all flex items-center justify-center gap-2 uppercase tracking-wider text-sm ${isPopular ? 'bg-gradient-to-r from-emerald-500 to-teal-400 text-zinc-950 hover:shadow-[0_0_20px_rgba(16,185,129,0.4)] hover:brightness-110' : 'bg-zinc-800 text-white hover:bg-emerald-500 hover:text-zinc-950'}`}>
+              {ctaText} <ChevronRight className="h-5 w-5" />
+            </button>
+          </form>
         </div>
       </div>
     </div>

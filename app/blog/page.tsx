@@ -11,6 +11,8 @@ export const metadata: Metadata = {
   description: "Learn how to scale your B2B service business using direct outbound marketing, cold outreach scripts, and verified prospect databases.",
 };
 
+export const revalidate = 86400; // Force ISR: Cache this page heavily to prevent Supabase bottlenecking
+
 // This function attempts to fetch from Supabase first, falling back to local JSON files
 async function getBlogIndex() {
   const blogs = [];

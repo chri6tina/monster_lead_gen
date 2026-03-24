@@ -55,6 +55,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   };
 }
 
+export const revalidate = 86400; // Force ISR: Extremely important for caching heavy dynamic paths
+
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params;
   const data = await getBlogData(resolvedParams.slug);
@@ -71,6 +73,22 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     );
   }
 
+  // Generate Structured Data (JSON-LD) for Google Rich Snippets
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.leadmonster.com';
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": data.title,
+    "description": data.excerpt,
+    "author": [{
+      "@type": "Person",
+      "name": data.author || "LeadMonster Intelligence",
+      "url": baseUrl
+    }],
+    "datePublished": new Date(data.date).toISOString(),
+    "url": `${baseUrl}/blog/${resolvedParams.slug}`
+  };
+
   // Derive contextual URLs if tags exist
   const derivedLink = data.targetCity && data.targetNiche 
     ? `/${data.targetNiche}/${data.targetCity}` 
@@ -80,6 +98,10 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
   return (
     <div className="min-h-screen bg-zinc-950 font-sans text-zinc-50 flex flex-col pt-20 selection:bg-emerald-500/30">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* Navbar Drop-in */}
       <nav className="fixed top-0 left-0 right-0 z-50 w-full border-b border-zinc-800 bg-zinc-950/80 backdrop-blur-md">
         <div className="container mx-auto px-6 h-20 flex items-center justify-between">

@@ -33,6 +33,7 @@ CREATE TABLE IF NOT EXISTS public.city_pages (
     "landscapeHeading" TEXT,
     "landscapeParagraph1" TEXT,
     "landscapeParagraph2" TEXT,
+    "faqs" JSONB, -- Example array of localized FAQs: [{"question": "Q?", "answer": "A."}]
     "blogs" JSONB, -- Example array of localized blogs: [{"title": "Blog", "url": "/blog/x"}]
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT city_pages_pkey PRIMARY KEY (niche_slug, city_slug)
