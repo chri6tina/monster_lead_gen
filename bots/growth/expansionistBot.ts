@@ -62,7 +62,7 @@ export class ExpansionistBot {
 
     try {
       const response = await openai.chat.completions.create({
-        model: "gpt-4o",
+        model: "gpt-4o-mini",
         messages: [
           { role: "system", content: this.systemPrompt },
           { role: "user", content: userPrompt }
