@@ -48,19 +48,19 @@ export default function Home() {
 
       <main className="flex-1">
         {/* Header/Hero Section */}
-        <section className="relative pt-20 pb-32 overflow-hidden border-b border-zinc-900">
+        <section className="relative pt-12 pb-16 sm:pt-20 sm:pb-32 overflow-hidden border-b border-zinc-900 min-h-[85vh] sm:min-h-0 flex flex-col justify-center">
           {/* Cybernetic Green/Teal Glowing Background */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-emerald-500/20 rounded-full blur-[140px] opacity-50 pointer-events-none"></div>
           <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-teal-500/20 rounded-full blur-[120px] opacity-40 pointer-events-none translate-x-1/3 -translate-y-1/3"></div>
           
           <div className="container mx-auto px-6 relative z-10 text-center max-w-5xl">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-bold text-xs sm:text-sm mb-8 uppercase tracking-widest shadow-[0_0_10px_rgba(16,185,129,0.1)]">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-bold text-xs mb-6 sm:mb-8 uppercase tracking-widest shadow-[0_0_10px_rgba(16,185,129,0.1)]">
               <Database className="h-4 w-4" /> B2B Data Broker For Starter Hustles
             </div>
-            <h1 className="text-6xl md:text-8xl lg:text-[6rem] font-black text-white tracking-tighter mb-8 leading-[1.05] uppercase">
+            <h1 className="text-5xl sm:text-7xl lg:text-[6rem] font-black text-white tracking-tighter mb-6 sm:mb-8 leading-[1.05] uppercase">
               Stop Waiting For Leads.<br /> <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-400 to-emerald-500">Start Feeding The Monster.</span>
             </h1>
-            <p className="text-xl md:text-2xl text-zinc-400 mb-12 max-w-3xl mx-auto leading-relaxed font-medium">
+            <p className="text-lg sm:text-2xl text-zinc-400 mb-8 sm:mb-12 max-w-3xl mx-auto leading-relaxed font-medium">
               Verified contact info for local decision-makers in Commercial Cleaning, Lawn Care, Logistics, and more. Skip the gatekeepers. Unlock commercial contracts.
             </p>
             <div className="flex flex-row items-center justify-center gap-3 sm:gap-6 w-full max-w-lg mx-auto">
