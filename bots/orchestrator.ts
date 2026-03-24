@@ -90,13 +90,32 @@ export async function runDailyContentFactory(industry: string, nicheSlug: string
   );
 }
 
-// Quick Demonstration Script
+// Production Execution Script for GitHub Actions
 if (require.main === module) {
-  const citiesQueue = [
-    "Atlanta, GA", "Dallas, TX", "Austin, TX", "Denver, CO", "Phoenix, AZ"
+  // A master list of highly-populated US Cities to target for local service contracts
+  const allUsCities = [
+    "Atlanta, GA", "Dallas, TX", "Austin, TX", "Denver, CO", "Phoenix, AZ", 
+    "Charlotte, NC", "Miami, FL", "Seattle, WA", "Houston, TX", "Orlando, FL",
+    "Nashville, TN", "Tampa, FL", "Raleigh, NC", "San Antonio, TX", "Las Vegas, NV"
   ];
 
-  runDailyContentFactory("Commercial Cleaning", "commercial-cleaning-leads", citiesQueue).then(() => {
-    console.log("🟢 Orchestrator Loop Finished.");
-  });
+  // The 5 Core LeadMonster Industries
+  const activeIndustries = [
+    { name: "Commercial Cleaning", slug: "commercial-cleaning-leads" },
+    { name: "HVAC Services", slug: "hvac-leads" },
+    { name: "Commercial Plumbing", slug: "plumbing-leads" },
+    { name: "Landscaping", slug: "landscaping-leads" },
+    { name: "Vending Machines", slug: "vending-machine-leads" }
+  ];
+
+  async function deployGlobalFactory() {
+    for (const industry of activeIndustries) {
+      console.log(`\n🚀 Waking up ${industry.name} Bots...`);
+      // Deploy the factory sequentially for each industry
+      await runDailyContentFactory(industry.name, industry.slug, allUsCities);
+    }
+    console.log("\n🟢 Global Orchestrator Loop Finished for ALL industries.");
+  }
+
+  deployGlobalFactory();
 }
