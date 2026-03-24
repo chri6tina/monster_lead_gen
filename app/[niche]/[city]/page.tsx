@@ -114,6 +114,17 @@ export default async function CityPage({ params }: { params: Promise<{ niche: st
     { icon: "MapPin", title: "Enterprise Outreach", desc: `Load our ${cityName} CSVs directly into your multi-channel CRM sequences.` }
   ];
 
+  // FAQ Hook (New feature connecting to Bot JSON output)
+  const dynamicFaqs = agentData?.faqs || [
+    { question: `Are these ${formattedLocation} leads exclusive?`, answer: `Our static database products give you access to all verified ${formattedNiche} prospects in the area. Like a highly-targeted directory, they belong to you once downloaded to market to continuously.` },
+    { question: `How accurate is the contact data?`, answer: `We use premium aggregation and manual scraping verification to ensure high delivery rates for direct emails and phone numbers. We constantly refresh the ${cityName} database.` },
+    { question: `What if contacts have bounced or moved on?`, answer: `We over-deliver on every list (providing 10-15% extra contacts at no charge) specifically to account for any natural business turnover in ${formattedLocation}.` },
+    { question: `Is this data compliant with outreach laws?`, answer: `Yes. Our records focus strictly on Business-to-Business (B2B) targets. Direct outbound outreach to businesses is legal in the US (under CAN-SPAM laws) provided you honor opt-out requests and represent your ${formattedNiche.toLowerCase()} business honestly.` },
+    { question: `How do I import this ${formattedLocation} data?`, answer: `Your targeted ${formattedNiche.toLowerCase()} lists are delivered as standard CSV/Excel sheets. They are pre-formatted so you can instantly upload them into popular CRMs like GoHighLevel, HubSpot, Pipedrive, or mass outbound email tools like Instantly and Woodpecker.` },
+    { question: `Why shouldn't I just run Google Ads in ${cityName}?`, answer: `In massive segments like ${formattedNiche.toLowerCase()}, Cost Per Click (CPC) ruins profit margins for newer agencies. Buying a mapped-out directory lets you contact hundreds of confirmed local facility decision-makers directly for a fraction of what a single commercial click costs in ${cityName}.` },
+    { question: `Can I use this list for direct mail campaigns?`, answer: `Absolutely. Alongside direct email addresses and phone numbers, our ${formattedLocation} records feature the exact physical address of the business. Combining direct mail physical flyers with phone outreach is an explosive multi-channel strategy.` }
+  ];
+
   // Market Landscape Hook
   const landscapeHeading = agentData?.landscapeHeading || `The ${formattedLocation} ${formattedNiche} Landscape`;
   const landscapeParagraph1 = agentData?.landscapeParagraph1 || `The demand for reliable ${formattedNiche.toLowerCase()} partners in ${formattedLocation} is at an all-time high. Facilities, offices, and commercial spaces are constantly turning over vendors. If you aren't first in their inbox, your competitors are.`;
@@ -194,9 +205,10 @@ export default async function CityPage({ params }: { params: Promise<{ niche: st
             <div className="grid md:grid-cols-2 gap-16 items-center">
               <div>
                 <h2 className="text-4xl md:text-5xl font-black text-white mb-6 uppercase tracking-tight">{infoHeading}</h2>
-                <p className="text-xl text-zinc-400 mb-8 leading-relaxed">
-                  {infoParagraph}
-                </p>
+                <div 
+                  className="text-xl text-zinc-400 mb-8 leading-relaxed space-y-4"
+                  dangerouslySetInnerHTML={{ __html: infoParagraph }}
+                />
                 <ul className="space-y-4">
                   <li className="flex items-start gap-4">
                     <div className="bg-emerald-500/10 p-2 rounded-lg mt-1"><CheckCircle2 className="h-5 w-5 text-emerald-400" /></div>
@@ -247,8 +259,8 @@ export default async function CityPage({ params }: { params: Promise<{ niche: st
           <div className="container mx-auto px-6 max-w-4xl relative z-10 text-center">
             <h2 className="text-3xl md:text-5xl font-black text-white mb-8 uppercase tracking-tight">{landscapeHeading}</h2>
             <div className="space-y-6 text-lg text-zinc-300 leading-loose font-medium">
-              <p>{landscapeParagraph1}</p>
-              <p>{landscapeParagraph2}</p>
+              <div dangerouslySetInnerHTML={{ __html: landscapeParagraph1 }} />
+              <div dangerouslySetInnerHTML={{ __html: landscapeParagraph2 }} />
             </div>
           </div>
         </section>
@@ -262,34 +274,12 @@ export default async function CityPage({ params }: { params: Promise<{ niche: st
             </div>
             
             <div className="space-y-4">
-              <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-8 hover:border-emerald-500/30 transition-colors cursor-default">
-                <h4 className="text-xl font-bold text-white mb-3">Are these {formattedLocation} leads exclusive?</h4>
-                <p className="text-zinc-400 leading-relaxed">Our static database products give you access to all verified {formattedNiche} prospects in the area. Like a highly-targeted directory, they belong to you once downloaded to market to continuously.</p>
-              </div>
-              <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-8 hover:border-emerald-500/30 transition-colors cursor-default">
-                <h4 className="text-xl font-bold text-white mb-3">How accurate is the contact data?</h4>
-                <p className="text-zinc-400 leading-relaxed">We use premium aggregation and manual scraping verification to ensure high delivery rates for direct emails and phone numbers. We constantly refresh the {cityName} database.</p>
-              </div>
-              <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-8 hover:border-emerald-500/30 transition-colors cursor-default">
-                <h4 className="text-xl font-bold text-white mb-3">What if contacts have bounced or moved on?</h4>
-                <p className="text-zinc-400 leading-relaxed">We over-deliver on every list (providing 10-15% extra contacts at no charge) specifically to account for any natural business turnover in {formattedLocation}.</p>
-              </div>
-              <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-8 hover:border-emerald-500/30 transition-colors shadow-sm">
-                <h4 className="text-xl font-bold text-white mb-3">Is this data compliant with outreach laws?</h4>
-                <p className="text-zinc-400 leading-relaxed">Yes. Our records focus strictly on Business-to-Business (B2B) targets. Direct outbound outreach to businesses is legal in the US (under CAN-SPAM laws) provided you honor opt-out requests and represent your {formattedNiche.toLowerCase()} business honestly.</p>
-              </div>
-              <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-8 hover:border-emerald-500/30 transition-colors shadow-sm">
-                <h4 className="text-xl font-bold text-white mb-3">How do I import this {formattedLocation} data?</h4>
-                <p className="text-zinc-400 leading-relaxed">Your targeted {formattedNiche.toLowerCase()} lists are delivered as standard CSV/Excel sheets. They are pre-formatted so you can instantly upload them into popular CRMs like GoHighLevel, HubSpot, Pipedrive, or mass outbound email tools like Instantly and Woodpecker.</p>
-              </div>
-              <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-8 hover:border-emerald-500/30 transition-colors shadow-sm">
-                <h4 className="text-xl font-bold text-white mb-3">Why shouldn't I just run Google Ads in {cityName}?</h4>
-                <p className="text-zinc-400 leading-relaxed">In massive segments like {formattedNiche.toLowerCase()}, Cost Per Click (CPC) ruins profit margins for newer agencies. Buying a mapped-out directory lets you contact hundreds of confirmed local facility decision-makers directly for a fraction of what a single commercial click costs in {cityName}.</p>
-              </div>
-              <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-8 hover:border-emerald-500/30 transition-colors shadow-sm">
-                <h4 className="text-xl font-bold text-white mb-3">Can I use this list for direct mail campaigns?</h4>
-                <p className="text-zinc-400 leading-relaxed">Absolutely. Alongside direct email addresses and phone numbers, our {formattedLocation} records feature the exact physical address of the business. Combining direct mail physical flyers with phone outreach is an explosive multi-channel strategy.</p>
-              </div>
+              {dynamicFaqs.map((faq: any, i: number) => (
+                <div key={i} className="bg-zinc-900 border border-zinc-800 rounded-2xl p-8 hover:border-emerald-500/30 transition-colors shadow-sm">
+                  <h4 className="text-xl font-bold text-white mb-3">{faq.question}</h4>
+                  <div className="text-zinc-400 leading-relaxed space-y-2" dangerouslySetInnerHTML={{ __html: faq.answer }} />
+                </div>
+              ))}
             </div>
           </div>
         </section>
