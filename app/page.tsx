@@ -63,18 +63,18 @@ export default function Home() {
             <p className="text-xl md:text-2xl text-zinc-400 mb-12 max-w-3xl mx-auto leading-relaxed font-medium">
               Verified contact info for local decision-makers in Commercial Cleaning, Lawn Care, Logistics, and more. Skip the gatekeepers. Unlock commercial contracts.
             </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+            <div className="flex flex-row items-center justify-center gap-3 sm:gap-6 w-full max-w-lg mx-auto">
               <Link 
                 href="#pricing" 
-                className="w-full sm:w-auto px-8 py-5 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-zinc-950 rounded-full font-black text-lg transition-all shadow-[0_0_30px_rgba(16,185,129,0.3)] hover:shadow-[0_0_40px_rgba(16,185,129,0.5)] flex items-center justify-center gap-3 uppercase tracking-wider hover:-translate-y-1"
+                className="flex-1 sm:flex-none px-4 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-zinc-950 rounded-full font-black text-xs sm:text-lg transition-all shadow-[0_0_30px_rgba(16,185,129,0.3)] hover:shadow-[0_0_40px_rgba(16,185,129,0.5)] flex items-center justify-center gap-2 uppercase tracking-wider hover:-translate-y-1 text-center"
               >
-                Pricing <ShoppingCart className="h-6 w-6" />
+                Pricing <ShoppingCart className="h-4 w-4 sm:h-5 sm:w-5 hidden sm:inline-block" />
               </Link>
               <Link 
                 href="#request" 
-                className="group w-full sm:w-auto px-8 py-5 bg-zinc-800/80 hover:bg-zinc-700 border border-zinc-600 hover:border-zinc-400 rounded-full font-bold text-lg text-zinc-100 hover:text-white transition-all flex items-center justify-center gap-3 backdrop-blur-sm hover:-translate-y-1 uppercase tracking-wider"
+                className="group flex-1 sm:flex-none px-4 py-3 sm:px-8 sm:py-4 bg-zinc-800/80 hover:bg-zinc-700 border border-zinc-600 hover:border-zinc-400 rounded-full font-bold text-xs sm:text-lg text-zinc-100 hover:text-white transition-all flex items-center justify-center gap-2 backdrop-blur-sm hover:-translate-y-1 uppercase tracking-wider text-center"
               >
-                Request Custom Data <Search className="h-6 w-6 text-zinc-300 group-hover:text-white transition-colors" />
+                Custom Data <Search className="h-4 w-4 sm:h-5 sm:w-5 text-zinc-300 group-hover:text-white hidden sm:inline-block transition-colors" />
               </Link>
             </div>
           </div>
