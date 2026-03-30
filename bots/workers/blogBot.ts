@@ -112,7 +112,7 @@ export class BlogBot {
         { "Length": blogData.content.length }
       );
 
-      return true;
+      return blogData.slug;
 
     } catch (err: any) {
       // Alerts are "extremely important" so we still push them to Telegram

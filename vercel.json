@@ -1,0 +1,30 @@
+{
+  "framework": "nextjs",
+  "functions": {
+    "app/api/cron/**/*.ts": {
+      "maxDuration": 300
+    }
+  },
+  "crons": [
+    {
+      "path": "/api/cron/run-factory?industry=commercial-cleaning-leads",
+      "schedule": "0 2 * * *"
+    },
+    {
+      "path": "/api/cron/run-factory?industry=hvac-leads",
+      "schedule": "15 2 * * *"
+    },
+    {
+      "path": "/api/cron/run-factory?industry=plumbing-leads",
+      "schedule": "30 2 * * *"
+    },
+    {
+      "path": "/api/cron/run-factory?industry=landscaping-leads",
+      "schedule": "45 2 * * *"
+    },
+    {
+      "path": "/api/cron/run-factory?industry=vending-machine-leads",
+      "schedule": "0 3 * * *"
+    }
+  ]
+}

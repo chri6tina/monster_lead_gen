@@ -1,6 +1,5 @@
 import Link from "next/link";
-import Image from "next/image";
-import { LayoutDashboard, FileText, Settings, LogOut, ArrowLeft } from "lucide-react";
+import { LayoutDashboard, FileText, Settings, LogOut, ArrowLeft, CreditCard, Ghost } from "lucide-react";
 import { logoutAction } from "../login/actions";
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
@@ -11,7 +10,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <div className="h-20 flex items-center px-6 border-b border-zinc-900 shrink-0">
           <Link href="/" className="flex items-center gap-3 group">
             <div className="w-8 h-8 rounded-lg overflow-hidden border border-emerald-500/30 flex items-center justify-center bg-zinc-900 group-hover:border-emerald-500/60 transition-all">
-              <Image src="/mascot.png" alt="Lead Monster" width={32} height={32} className="object-cover scale-150 group-hover:scale-[1.6] transition-transform" />
+              <Ghost className="w-4 h-4 text-emerald-500 group-hover:text-emerald-400 group-hover:scale-110 transition-all duration-300" strokeWidth={2.5} />
             </div>
             <span className="text-sm font-black tracking-tighter uppercase text-white">
               Admin<span className="text-emerald-500">Panel</span>
@@ -23,6 +22,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           {/* We only have Blogs for now, but ready for expansion */}
           <Link href="/admin/blogs" className="flex items-center gap-3 px-4 py-3 rounded-xl bg-emerald-500/10 text-emerald-400 font-bold text-xs uppercase tracking-widest border border-emerald-500/20">
             <FileText className="w-4 h-4" /> Blogs
+          </Link>
+          <Link href="/admin/purchases" className="flex items-center gap-3 px-4 py-3 rounded-xl text-zinc-400 hover:text-white hover:bg-zinc-900 transition-colors font-bold text-xs uppercase tracking-widest">
+            <CreditCard className="w-4 h-4" /> Purchases
           </Link>
           <div className="flex items-center gap-3 px-4 py-3 rounded-xl text-zinc-500 font-bold text-xs uppercase tracking-widest opacity-50 cursor-not-allowed">
             <LayoutDashboard className="w-4 h-4" /> Overview (WIP)

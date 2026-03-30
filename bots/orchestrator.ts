@@ -3,6 +3,7 @@ import { IndustryManagerBot } from './industryManagerBot';
 import { SEOBot } from './workers/seoBot';
 import { BlogBot } from './workers/blogBot';
 import { CityPagesBot } from './workers/cityPagesBot';
+import { SitemapIndexerBot } from './workers/sitemapIndexerBot';
 import dotenv from 'dotenv';
 import path from 'path';
 
@@ -43,6 +44,7 @@ export async function runDailyContentFactory(industry: string, nicheSlug: string
   const seo = new SEOBot(industry);
   const blogger = new BlogBot(industry);
   const localizer = new CityPagesBot(industry, nicheSlug);
+  const indexer = new SitemapIndexerBot(industry);
 
   // Example: Assume the system has been running for 10 days
   // In a real database, you query "SELECT COUNT(*) FROM bot_runs"
@@ -57,6 +59,7 @@ export async function runDailyContentFactory(industry: string, nicheSlug: string
   );
 
   let pagesGeneratedToday = 0; // Imagine evaluating the DB to see how many we published today
+  const newlyPublishedUrls: string[] = []; // Collect URLs to ping Google with
 
   // Step 2: The Action Loop (Stop gracefully when we hit the limit)
   for (const city of targetCities) {
@@ -70,7 +73,20 @@ export async function runDailyContentFactory(industry: string, nicheSlug: string
     
     // 2. Task: City Page Generation (The 10+ FAQ Data Blob)
     if (brief) {
-      await localizer.generateAndPublishCity(city, city.toLowerCase().replace(/, /g, '-').replace(/ /g, '-'), pagesGeneratedToday, SAFE_DAILY_LIMIT);
+      const citySlug = city.toLowerCase().replace(/, /g, '-').replace(/ /g, '-');
+      await localizer.generateAndPublishCity(city, citySlug, pagesGeneratedToday, SAFE_DAILY_LIMIT);
+      
+      // Calculate the fully qualified City Page URL to tell Google about
+      const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.monsterleadgen.com';
+      const cityUrl = `${baseUrl}/${nicheSlug}/${citySlug}`;
+      newlyPublishedUrls.push(cityUrl);
+
+      // 3. Task: Blog Generation (Piggyback off the same SEO brief!)
+      const generatedBlogSlug = await blogger.generateAndPublishPost(brief, city, pagesGeneratedToday, SAFE_DAILY_LIMIT);
+      if (generatedBlogSlug) {
+        newlyPublishedUrls.push(`${baseUrl}/blog/${generatedBlogSlug}`);
+      }
+
       pagesGeneratedToday++;
     }
 
@@ -78,6 +94,11 @@ export async function runDailyContentFactory(industry: string, nicheSlug: string
     await manager.synthesizeWorkerData({
       'City Pages Bot': `Successfully deployed ${city} targeting local search traffic.`
     });
+  }
+
+  // 4. Task: Push everything immediately to the Google Search Console Indexer
+  if (newlyPublishedUrls.length > 0) {
+    await indexer.indexUrls(newlyPublishedUrls);
   }
 
   // Final Shutdown Report
@@ -90,28 +111,25 @@ export async function runDailyContentFactory(industry: string, nicheSlug: string
   );
 }
 
-// Production Execution Script for GitHub Actions
+export const allUsCities = [
+  "Atlanta, GA", "Dallas, TX", "Austin, TX", "Denver, CO", "Phoenix, AZ", 
+  "Charlotte, NC", "Miami, FL", "Seattle, WA", "Houston, TX", "Orlando, FL",
+  "Nashville, TN", "Tampa, FL", "Raleigh, NC", "San Antonio, TX", "Las Vegas, NV"
+];
+
+export const activeIndustries = [
+  { name: "Commercial Cleaning", slug: "commercial-cleaning-leads" },
+  { name: "HVAC Services", slug: "hvac-leads" },
+  { name: "Commercial Plumbing", slug: "plumbing-leads" },
+  { name: "Landscaping", slug: "landscaping-leads" },
+  { name: "Vending Machines", slug: "vending-machine-leads" }
+];
+
+// Fallback logic for manual testing from command line / GitHub Actions
 if (require.main === module) {
-  // A master list of highly-populated US Cities to target for local service contracts
-  const allUsCities = [
-    "Atlanta, GA", "Dallas, TX", "Austin, TX", "Denver, CO", "Phoenix, AZ", 
-    "Charlotte, NC", "Miami, FL", "Seattle, WA", "Houston, TX", "Orlando, FL",
-    "Nashville, TN", "Tampa, FL", "Raleigh, NC", "San Antonio, TX", "Las Vegas, NV"
-  ];
-
-  // The 5 Core LeadMonster Industries
-  const activeIndustries = [
-    { name: "Commercial Cleaning", slug: "commercial-cleaning-leads" },
-    { name: "HVAC Services", slug: "hvac-leads" },
-    { name: "Commercial Plumbing", slug: "plumbing-leads" },
-    { name: "Landscaping", slug: "landscaping-leads" },
-    { name: "Vending Machines", slug: "vending-machine-leads" }
-  ];
-
   async function deployGlobalFactory() {
     for (const industry of activeIndustries) {
       console.log(`\n🚀 Waking up ${industry.name} Bots...`);
-      // Deploy the factory sequentially for each industry
       await runDailyContentFactory(industry.name, industry.slug, allUsCities);
     }
     console.log("\n🟢 Global Orchestrator Loop Finished for ALL industries.");

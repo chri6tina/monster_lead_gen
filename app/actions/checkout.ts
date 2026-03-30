@@ -2,6 +2,8 @@
 
 import Stripe from 'stripe';
 import { redirect } from 'next/navigation';
+import { sendBotMessage } from '@/bots/core/telegramService';
+import { supabaseAdmin } from '@/lib/supabaseAdmin';
 
 export async function createCheckoutSession(formData: FormData) {
   // 1. Initialize Stripe Native Service
@@ -21,6 +23,9 @@ export async function createCheckoutSession(formData: FormData) {
   const leadCount = formData.get('leadCount') as string;
   const cityName = formData.get('cityName') as string;
   const nicheName = formData.get('nicheName') as string;
+  const clientEmail = formData.get('clientEmail') as string | null;
+  const zipCode = formData.get('zipCode') as string | null;
+  const sourceUrl = formData.get('sourceUrl') as string | null;
 
   // Convert string dollar amount (e.g. "49") to integer pennies (4900)
   const unitAmount = parseInt(priceAmountStr) * 100;
@@ -37,10 +42,30 @@ export async function createCheckoutSession(formData: FormData) {
 
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
 
-  // 4. Generate the Stripe Checkout Session on the fly!
+  // 4. Send Live Lead Capture Notification to Telegram!
+  try {
+    await sendBotMessage(
+      "Checkout Node",
+      nicheName || "Global",
+      "ACTION",
+      `🤑 *NEW CHECKOUT INITIATED*\nA prospect just filled out the modal and is being sent to Stripe!`,
+      {
+        "Email": clientEmail || "N/A",
+        "Zip Code": zipCode || "N/A",
+        "Plan Selected": `${planName} (${leadCount} Leads)`,
+        "Target Territory": cityName || "N/A",
+        "Source URL": sourceUrl || "Direct"
+      }
+    );
+  } catch (e) {
+    console.error("Failed to send telegram checkout alert", e);
+  }
+
+  // 5. Generate the Stripe Checkout Session on the fly!
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ['card'],
     mode: 'payment',
+    ...(clientEmail ? { customer_email: clientEmail } : {}),
     line_items: [
       {
         price_data: {
@@ -57,14 +82,40 @@ export async function createCheckoutSession(formData: FormData) {
     metadata: {
       planName,
       leadCount,
-      cityName,
-      nicheName
+      cityName: cityName || 'N/A',
+      nicheName: nicheName || 'N/A',
+      zipCode: zipCode || 'N/A',
+      sourceUrl: sourceUrl || 'N/A'
     },
     success_url: `${baseUrl}/success?session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${baseUrl}/businesses`,
   });
 
-  // 5. Instantly bounce the user's browser to the new generated Stripe URL
+  // 6. Log the 'pending' Intent into Supabase BEFORE redirecting (Abandoned Cart Tracking)
+  if (session.id && supabaseAdmin) {
+    try {
+      const { error } = await supabaseAdmin.from('purchases').insert([{
+        stripe_session_id: session.id,
+        client_email: clientEmail ? clientEmail.trim().toLowerCase() : null,
+        zip_code: zipCode || 'N/A',
+        plan_name: planName || 'Unknown Plan',
+        lead_count: parseInt(leadCount, 10) || 0,
+        niche_name: nicheName || 'N/A',
+        city_name: cityName || 'N/A',
+        price_paid: unitAmount / 100,
+        source_url: sourceUrl || 'Direct',
+        status: 'pending'
+      }]);
+      
+      if (error) {
+        console.error("Failed to insert pending intent into Supabase:", error);
+      }
+    } catch (dbErr) {
+      console.error("Database intent tracking safely ignored on crash:", dbErr);
+    }
+  }
+
+  // 7. Instantly bounce the user's browser to the new generated Stripe URL
   if (session.url) {
     redirect(session.url);
   } else {

@@ -1,5 +1,5 @@
 import { CheckCircle2, ChevronRight, X } from "lucide-react";
-import { createCheckoutSession } from "@/app/actions/checkout";
+import { CheckoutModalButton } from "./CheckoutModalButton";
 
 interface PricingSectionProps {
   cityName?: string;
@@ -106,14 +106,15 @@ export function PricingSection({
                 <span className="text-lg font-bold text-zinc-500">$</span>
                 <span className="text-4xl font-black text-white">{PRICE_STARTER}</span>
               </div>
-              <form action={createCheckoutSession} className="w-full">
-                <input type="hidden" name="planName" value="Starter" />
-                <input type="hidden" name="priceAmount" value={PRICE_STARTER} />
-                <input type="hidden" name="leadCount" value="50" />
-                <input type="hidden" name="cityName" value={cityName || ""} />
-                <input type="hidden" name="nicheName" value={formattedNiche || ""} />
-                <button type="submit" className="w-full px-4 py-3 rounded-lg border border-zinc-700 bg-zinc-800 hover:bg-zinc-700 text-white font-black text-xs uppercase tracking-widest transition-colors flex items-center justify-center gap-2 shadow-sm">Select <ChevronRight className="w-3.5 h-3.5"/></button>
-              </form>
+              <CheckoutModalButton
+                planName="Starter"
+                priceAmount={PRICE_STARTER}
+                leadCount="50"
+                cityName={cityName}
+                nicheName={formattedNiche}
+                ctaText="Select"
+                buttonClassName="w-full px-4 py-3 rounded-lg border border-zinc-700 bg-zinc-800 hover:bg-zinc-700 text-white font-black text-xs uppercase tracking-widest transition-colors flex items-center justify-center gap-2 shadow-sm"
+              />
             </div>
             
             <div className="p-6 border-b border-l border-zinc-800 text-center bg-emerald-950/10 flex flex-col items-center justify-center relative pt-12 group">
@@ -125,14 +126,15 @@ export function PricingSection({
                   <span className="text-lg font-bold text-zinc-500">$</span>
                   <span className="text-4xl font-black text-white">{PRICE_GROWTH}</span>
                 </div>
-                <form action={createCheckoutSession} className="w-full">
-                  <input type="hidden" name="planName" value="Growth" />
-                  <input type="hidden" name="priceAmount" value={PRICE_GROWTH} />
-                  <input type="hidden" name="leadCount" value="100" />
-                  <input type="hidden" name="cityName" value={cityName || ""} />
-                  <input type="hidden" name="nicheName" value={formattedNiche || ""} />
-                  <button type="submit" className="w-full px-4 py-3 rounded-lg bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-zinc-950 font-black text-xs uppercase tracking-widest transition-all hover:-translate-y-0.5 shadow-[0_0_15px_rgba(16,185,129,0.2)] flex items-center justify-center gap-2">Select <ChevronRight className="w-3.5 h-3.5"/></button>
-                </form>
+                <CheckoutModalButton
+                  planName="Growth"
+                  priceAmount={PRICE_GROWTH}
+                  leadCount="100"
+                  cityName={cityName}
+                  nicheName={formattedNiche}
+                  ctaText="Select"
+                  buttonClassName="w-full px-4 py-3 rounded-lg bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-zinc-950 font-black text-xs uppercase tracking-widest transition-all hover:-translate-y-0.5 shadow-[0_0_15px_rgba(16,185,129,0.2)] flex items-center justify-center gap-2"
+                />
               </div>
             </div>
             
@@ -142,14 +144,15 @@ export function PricingSection({
                 <span className="text-lg font-bold text-zinc-500">$</span>
                 <span className="text-4xl font-black text-white">{PRICE_DOMINATION}</span>
               </div>
-              <form action={createCheckoutSession} className="w-full">
-                <input type="hidden" name="planName" value="Domination" />
-                <input type="hidden" name="priceAmount" value={PRICE_DOMINATION} />
-                <input type="hidden" name="leadCount" value="200" />
-                <input type="hidden" name="cityName" value={cityName || ""} />
-                <input type="hidden" name="nicheName" value={formattedNiche || ""} />
-                <button type="submit" className="w-full px-4 py-3 rounded-lg border border-zinc-700 bg-zinc-800 hover:bg-zinc-700 text-white font-black text-xs uppercase tracking-widest transition-colors flex items-center justify-center gap-2 shadow-sm">Select <ChevronRight className="w-3.5 h-3.5"/></button>
-              </form>
+              <CheckoutModalButton
+                planName="Domination"
+                priceAmount={PRICE_DOMINATION}
+                leadCount="200"
+                cityName={cityName}
+                nicheName={formattedNiche}
+                ctaText="Select"
+                buttonClassName="w-full px-4 py-3 rounded-lg border border-zinc-700 bg-zinc-800 hover:bg-zinc-700 text-white font-black text-xs uppercase tracking-widest transition-colors flex items-center justify-center gap-2 shadow-sm"
+              />
             </div>
 
             {/* Row 1: Number of Leads */}
@@ -278,16 +281,15 @@ function PricingCard({
         </div>
         
         <div className="pt-8 border-t border-zinc-800 mt-auto">
-          <form action={createCheckoutSession} className="w-full">
-            <input type="hidden" name="planName" value={title} />
-            <input type="hidden" name="priceAmount" value={parsedPrice} />
-            <input type="hidden" name="leadCount" value={leadCount} />
-            <input type="hidden" name="cityName" value={cityName || ""} />
-            <input type="hidden" name="nicheName" value={formattedNiche || ""} />
-            <button type="submit" className={`w-full px-8 py-5 rounded-xl font-black transition-all flex items-center justify-center gap-2 uppercase tracking-wider text-sm ${isPopular ? 'bg-gradient-to-r from-emerald-500 to-teal-400 text-zinc-950 hover:shadow-[0_0_20px_rgba(16,185,129,0.4)] hover:brightness-110' : 'bg-zinc-800 text-white hover:bg-emerald-500 hover:text-zinc-950'}`}>
-              {ctaText} <ChevronRight className="h-5 w-5" />
-            </button>
-          </form>
+          <CheckoutModalButton 
+            planName={title}
+            priceAmount={parsedPrice}
+            leadCount={leadCount}
+            cityName={cityName}
+            nicheName={formattedNiche}
+            ctaText={ctaText}
+            buttonClassName={`w-full px-8 py-5 rounded-xl font-black transition-all flex items-center justify-center gap-2 uppercase tracking-wider text-sm ${isPopular ? 'bg-gradient-to-r from-emerald-500 to-teal-400 text-zinc-950 hover:shadow-[0_0_20px_rgba(16,185,129,0.4)] hover:brightness-110' : 'bg-zinc-800 border border-zinc-700 text-white hover:bg-emerald-500 hover:border-emerald-500 hover:text-zinc-950'}`}
+          />
         </div>
       </div>
     </div>

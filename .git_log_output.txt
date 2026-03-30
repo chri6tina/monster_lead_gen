@@ -1,0 +1,5 @@
+﻿chri6tina: Merge remote-tracking branch 'origin/main'
+chri6tina: Save local state before pulling from GitHub
+chri6tina: style: Cleaned up the top navigation bar to drive massive focus to the Pricing section
+chri6tina: feat: Add LivePurchasersCounter for massive CRO urgency in Hero Section
+chri6tina: copy: Rewrote pricing section copy to sound like a premium B2B pipeline asset rather than a basic CSV file

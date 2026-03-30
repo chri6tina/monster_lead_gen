@@ -12,7 +12,8 @@ import {
   ChevronRight,
   MapPin,
   ShieldCheck,
-  X
+  X,
+  Ghost
 } from "lucide-react";
 import { PricingSection } from "@/components/PricingSection";
 import { LivePurchasersCounter } from "@/components/LivePurchasersCounter";
@@ -24,12 +25,17 @@ export default function Home() {
       <nav className="fixed top-0 left-0 right-0 z-50 w-full border-b border-zinc-800 bg-zinc-950/80 backdrop-blur-md">
         <div className="container mx-auto px-6 h-20 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 rounded-[10px] overflow-hidden border border-emerald-500/30 flex items-center justify-center bg-zinc-900 shadow-[0_0_10px_rgba(16,185,129,0.2)] group-hover:shadow-[0_0_15px_rgba(16,185,129,0.5)] group-hover:border-emerald-500/60 transition-all">
-              <Image src="/mascot.png" alt="Lead Monster" width={48} height={48} className="object-cover scale-150 group-hover:scale-[1.6] transition-transform" />
+            <div className="relative flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500/10 to-teal-800/20 border border-emerald-500/20 shadow-[0_0_15px_rgba(16,185,129,0.15)] group-hover:border-emerald-400/50 group-hover:shadow-[0_0_25px_rgba(16,185,129,0.3)] transition-all overflow-hidden backdrop-blur-sm">
+              <Ghost className="w-6 h-6 text-emerald-500 group-hover:text-emerald-400 group-hover:scale-110 transition-all duration-300" strokeWidth={2.5} />
             </div>
-            <span className="text-xl font-black tracking-tighter uppercase text-white group-hover:opacity-90 transition-opacity">
-              Lead<span className="text-emerald-500">Monster</span>
-            </span>
+            <div className="flex flex-col justify-center">
+              <span className="text-2xl font-black tracking-tighter uppercase text-white leading-none group-hover:text-emerald-50 transition-colors">
+                Lead<span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-500">Monster</span>
+              </span>
+              <span className="text-[10px] uppercase font-bold tracking-widest text-zinc-500 mt-0.5 group-hover:text-zinc-400 transition-colors">
+                B2B Data Broker
+              </span>
+            </div>
           </Link>
           <div className="hidden md:flex items-center gap-8 text-sm font-bold text-zinc-400">
             <Link href="#how-it-works" className="hover:text-emerald-400 transition-colors uppercase tracking-wide">How it Works</Link>
@@ -172,10 +178,17 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-16 mb-16">
             <div className="col-span-1 lg:col-span-2">
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 rounded-[12px] overflow-hidden border border-emerald-500/30 flex items-center justify-center bg-zinc-900 shadow-[0_0_10px_rgba(16,185,129,0.2)]">
-                  <Image src="/mascot.png" alt="Lead Monster" width={56} height={56} className="object-cover scale-150" />
+                <div className="relative flex items-center justify-center w-14 h-14 rounded-xl bg-gradient-to-br from-emerald-500/10 to-teal-800/20 border border-emerald-500/20 shadow-[0_0_15px_rgba(16,185,129,0.15)] overflow-hidden backdrop-blur-sm">
+                  <Ghost className="w-7 h-7 text-emerald-500" strokeWidth={2.5} />
                 </div>
-                <span className="text-2xl font-black tracking-tighter text-white uppercase">Lead<span className="text-emerald-500">Monster</span></span>
+                <div className="flex flex-col justify-center">
+                  <span className="text-3xl font-black tracking-tighter text-white uppercase leading-none">
+                    Lead<span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-500">Monster</span>
+                  </span>
+                  <span className="text-xs uppercase font-bold tracking-widest text-zinc-500 mt-1">
+                    B2B Data Broker
+                  </span>
+                </div>
               </div>
               <p className="text-zinc-400 max-w-sm mb-6 text-lg font-medium leading-relaxed">
                 The leading B2B Data Broker for modern Starter Hustles. We provide the ammunition, you pull the trigger.

@@ -2,8 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { loginAction } from "./actions";
-import { Loader2, ArrowRight } from "lucide-react";
-import Image from "next/image";
+import { Loader2, ArrowRight, Ghost } from "lucide-react";
 
 export default function LoginPage() {
   const [password, setPassword] = useState("");
@@ -27,8 +26,8 @@ export default function LoginPage() {
       
       <div className="w-full max-w-md relative z-10">
         <div className="flex flex-col items-center mb-8">
-          <div className="w-16 h-16 rounded-xl overflow-hidden border border-emerald-500/30 flex items-center justify-center bg-zinc-900 shadow-[0_0_20px_rgba(16,185,129,0.2)] mb-4">
-            <Image src="/mascot.png" alt="LeadMonster Admin" width={64} height={64} className="object-cover scale-150" />
+          <div className="w-16 h-16 rounded-xl overflow-hidden border border-emerald-500/30 flex items-center justify-center bg-zinc-900 shadow-[0_0_20px_rgba(16,185,129,0.2)] mb-4 group">
+            <Ghost className="w-8 h-8 text-emerald-500 group-hover:text-emerald-400 group-hover:scale-110 transition-all duration-300" strokeWidth={2.5} />
           </div>
           <h1 className="text-3xl font-black tracking-tighter uppercase text-white">
             Lead<span className="text-emerald-500">Monster</span> Admin
