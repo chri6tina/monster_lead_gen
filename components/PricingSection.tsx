@@ -158,13 +158,13 @@ export function PricingSection({
               <p className="text-[11px] text-neutral-500 font-medium leading-relaxed">Verified {formattedNiche ? formattedNiche : 'business'} locations.</p>
             </div>
             <div className="px-8 py-5 border-b border-l border-white/5 text-center flex items-center justify-center bg-[#0a0a0a]">
-              <span className="text-lg font-semibold text-white">50 Nodes</span>
+              <span className="text-lg font-semibold text-white">50 Leads</span>
             </div>
             <div className="px-8 py-5 border-b border-l border-white/5 text-center flex items-center justify-center bg-[#111111]">
-              <span className="text-lg font-semibold text-white">100 Nodes</span>
+              <span className="text-lg font-semibold text-white">100 Leads</span>
             </div>
             <div className="px-8 py-5 border-b border-l border-white/5 text-center flex items-center justify-center bg-[#0a0a0a]">
-              <span className="text-lg font-semibold text-white">200 Nodes</span>
+              <span className="text-lg font-semibold text-white">200 Leads</span>
             </div>
 
             {/* Row 2: Basic Lead Details */}
@@ -260,7 +260,7 @@ function PricingCard({
         
         <div className="mb-8 p-3 rounded-lg bg-white/5 border border-white/5">
           <span className="text-white font-bold">{leadCount}</span>
-          <span className="text-neutral-400 text-sm ml-1">Nodes Allocated</span>
+          <span className="text-neutral-400 text-sm ml-1">Leads Delivered</span>
         </div>
         
         <div className="mb-10 flex-1">
