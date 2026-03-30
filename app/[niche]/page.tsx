@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { redirect } from "next/navigation";
 import { Metadata } from "next";
 import { 
   Building2, 
@@ -15,6 +16,7 @@ import { PricingSection } from "@/components/PricingSection";
 
 export async function generateMetadata({ params }: { params: Promise<{ niche: string }> }): Promise<Metadata> {
   const resolvedParams = await params;
+  if (resolvedParams.niche === 'how-it-works') return {};
   let decodedNiche = decodeURIComponent(resolvedParams.niche || "");
   const rawNiche = decodedNiche.toLowerCase().replace(/-leads$/, '').replace(/-/g, ' ').replace(/[^a-z0-9 ]/g, '').trim();
   const formattedNiche = rawNiche.split(' ').filter(Boolean).map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
@@ -49,6 +51,10 @@ const US_STATES = [
 export default async function NicheHubPage({ params }: { params: Promise<{ niche: string }> }) {
   const resolvedParams = await params;
   
+  if (resolvedParams.niche === 'how-it-works') {
+    redirect('/how-it-works');
+  }
+
   let decodedNiche = decodeURIComponent(resolvedParams.niche || "");
   const rawNiche = decodedNiche.toLowerCase().replace(/-leads$/, '').replace(/-/g, ' ').replace(/[^a-z0-9 ]/g, '').trim();
   const formattedNiche = rawNiche.split(' ').filter(Boolean).map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
@@ -100,7 +106,7 @@ export default async function NicheHubPage({ params }: { params: Promise<{ niche
             </p>
 
             <div className="grid md:grid-cols-3 gap-8">
-              <div className="bg-zinc-900 border border-zinc-800 p-8 rounded-3xl hover:border-emerald-500/30 transition-all shadow-lg relative cursor-default">
+              <div className="bg-zinc-900 border border-zinc-800 p-8 rounded-3xl hover:border-emerald-500/30 transition-all shadow-lg relative cursor-default overflow-hidden">
                 <div className="absolute top-0 left-0 w-1 h-full bg-emerald-500/20 rounded-l-3xl"></div>
                 <Target className="w-10 h-10 text-emerald-400 mb-6" />
                 <h3 className="text-2xl font-bold text-white mb-3 tracking-tight">1. Precision Targeting</h3>
@@ -109,7 +115,7 @@ export default async function NicheHubPage({ params }: { params: Promise<{ niche
                 </p>
               </div>
               
-              <div className="bg-zinc-900 border border-zinc-800 p-8 rounded-3xl hover:border-emerald-500/30 transition-all shadow-lg relative cursor-default">
+              <div className="bg-zinc-900 border border-zinc-800 p-8 rounded-3xl hover:border-emerald-500/30 transition-all shadow-lg relative cursor-default overflow-hidden">
                 <div className="absolute top-0 left-0 w-1 h-full bg-emerald-500/20 rounded-l-3xl"></div>
                 <ShieldCheck className="w-10 h-10 text-emerald-400 mb-6" />
                 <h3 className="text-2xl font-bold text-white mb-3 tracking-tight">2. Gain Vendor Confidence</h3>
@@ -118,7 +124,7 @@ export default async function NicheHubPage({ params }: { params: Promise<{ niche
                 </p>
               </div>
 
-              <div className="bg-zinc-900 border border-zinc-800 p-8 rounded-3xl hover:border-emerald-500/30 transition-all shadow-lg relative cursor-default">
+              <div className="bg-zinc-900 border border-zinc-800 p-8 rounded-3xl hover:border-emerald-500/30 transition-all shadow-lg relative cursor-default overflow-hidden">
                 <div className="absolute top-0 left-0 w-1 h-full bg-emerald-500/20 rounded-l-3xl"></div>
                 <TrendingUp className="w-10 h-10 text-emerald-400 mb-6" />
                 <h3 className="text-2xl font-bold text-white mb-3 tracking-tight">3. Recurring B2B Revenue</h3>
