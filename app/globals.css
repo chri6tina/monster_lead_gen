@@ -1,0 +1,34 @@
+@import "tailwindcss";
+
+@theme {
+  --color-monster-bg: #0a0f18; /* very dark, almost black blue */
+  --color-monster-panel: #111827;
+  --color-monster-accent: #3b82f6; /* bright blue */
+  --color-monster-accent-hover: #2563eb;
+  --color-monster-green: #22c55e; /* electric green */
+  --color-monster-green-hover: #16a34a;
+}
+
+:root {
+  --background: var(--color-monster-bg);
+  --foreground: #f1f5f9;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: var(--color-monster-bg);
+    --foreground: #f1f5f9;
+  }
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+.text-gradient {
+  background: linear-gradient(to right, var(--color-monster-green), #84cc16);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
