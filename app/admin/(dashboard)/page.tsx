@@ -1,6 +1,7 @@
 import { Activity, LayoutDashboard, Rss, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { supabaseAdmin } from "@/lib/supabaseAdmin";
+import { OrganicStrikeCountdown } from "@/components/OrganicStrikeCountdown";
 
 export default async function AdminDashboardOverview() {
   const blogCount = await getBlogCount();
@@ -45,6 +46,10 @@ export default async function AdminDashboardOverview() {
               Awaiting Analytics <LayoutDashboard className="w-4 h-4" />
            </div>
         </div>
+
+        {/* The Live Radar Module */}
+        <OrganicStrikeCountdown />
+
       </div>
     </div>
   );

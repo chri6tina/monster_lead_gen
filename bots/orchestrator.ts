@@ -4,6 +4,7 @@ import { SEOBot } from './workers/seoBot';
 import { BlogBot } from './workers/blogBot';
 import { CityPagesBot } from './workers/cityPagesBot';
 import { SitemapIndexerBot } from './workers/sitemapIndexerBot';
+import { SniperBot } from './workers/sniperBot';
 import dotenv from 'dotenv';
 import path from 'path';
 
@@ -45,6 +46,7 @@ export async function runDailyContentFactory(industry: string, nicheSlug: string
   const blogger = new BlogBot(industry);
   const localizer = new CityPagesBot(industry, nicheSlug);
   const indexer = new SitemapIndexerBot(industry);
+  const sniper = new SniperBot(industry);
 
   // Example: Assume the system has been running for 10 days
   // In a real database, you query "SELECT COUNT(*) FROM bot_runs"
@@ -71,7 +73,16 @@ export async function runDailyContentFactory(industry: string, nicheSlug: string
     // 1. Task: SEO Research for this City
     const brief = await seo.buildContentBrief(`${industry} Lead Generation`, city);
     
-    // 2. Task: City Page Generation (The 10+ FAQ Data Blob)
+    // 2. Task: Sniper Bot Intelligence Gathering (Competitor Gap Analysis)
+    let enhancedBrief: string = brief || "";
+    if (brief) {
+      const sniperIntel = await sniper.acquireCompetitorIntel(`${industry} in ${city}`);
+      if (sniperIntel) {
+        enhancedBrief = `${brief}\n\n${sniperIntel}`;
+      }
+    }
+
+    // 3. Task: City Page Generation (The 10+ FAQ Data Blob)
     if (brief) {
       const citySlug = city.toLowerCase().replace(/, /g, '-').replace(/ /g, '-');
       await localizer.generateAndPublishCity(city, citySlug, pagesGeneratedToday, SAFE_DAILY_LIMIT);
@@ -81,8 +92,8 @@ export async function runDailyContentFactory(industry: string, nicheSlug: string
       const cityUrl = `${baseUrl}/${nicheSlug}/${citySlug}`;
       newlyPublishedUrls.push(cityUrl);
 
-      // 3. Task: Blog Generation (Piggyback off the same SEO brief!)
-      const generatedBlogSlug = await blogger.generateAndPublishPost(brief, city, pagesGeneratedToday, SAFE_DAILY_LIMIT);
+      // 4. Task: Blog Generation (Piggyback off the same SEO brief, supercharged with Sniper Intel!)
+      const generatedBlogSlug = await blogger.generateAndPublishPost(enhancedBrief, city, pagesGeneratedToday, SAFE_DAILY_LIMIT);
       if (generatedBlogSlug) {
         newlyPublishedUrls.push(`${baseUrl}/blog/${generatedBlogSlug}`);
       }
@@ -90,13 +101,13 @@ export async function runDailyContentFactory(industry: string, nicheSlug: string
       pagesGeneratedToday++;
     }
 
-    // 3. Task: Inform Manager Bot
+    // 5. Task: Inform Manager Bot
     await manager.synthesizeWorkerData({
       'City Pages Bot': `Successfully deployed ${city} targeting local search traffic.`
     });
   }
 
-  // 4. Task: Push everything immediately to the Google Search Console Indexer
+  // 6. Task: Push everything immediately to the Google Search Console Indexer
   if (newlyPublishedUrls.length > 0) {
     await indexer.indexUrls(newlyPublishedUrls);
   }
