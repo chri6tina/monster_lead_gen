@@ -39,6 +39,7 @@ export class CityPagesBot {
       2. UNIQUENESS: No boilerplate. If the target is Miami, you MUST talk about Florida's climate, local commercial zoning, and actual geographic relevance to the ${this.industryName} industry.
       3. FAQS: You MUST provide EXACTLY 10 rich, fully-fleshed out FAQs about ${this.industryName} in this specific city to snatch Google's "People Also Ask" snippets.
       4. VOICE: Aggressive B2B lead generation. We want the user to buy our data sets.
+      5. NEGATIVE CONSTRAINTS: DO NOT use generic, cliché AI city-filler words. ABSOLUTELY BANNED WORDS: "bustling", "lush greenery", "In today's fast-paced world", "delve", "moreover", "testament", "vibrant", "look no further", "tapestry", "hidden gem", "nestled". Be ruthless, direct, and sound like a highly-paid B2B data broker, not a cheap travel blogger.
 
       You must return your response STRICTLY as a JSON object matching this structure:
       {

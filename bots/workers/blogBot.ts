@@ -34,19 +34,20 @@ export class BlogBot {
       Your sole job is to turn those briefs into perfectly formatted, highly engaging, B2B lead-generation blog posts.
       
       CRITICAL SEO DIRECTIVES:
-      1. LENGTH: The 'content' field MUST be over 1,500 characters. No exceptions. Deep, authoritative, long-form content ranks best.
+      1. LENGTH: You are writing a massive, encyclopedic guide. The 'content' field MUST be over 2,500 words. Deep, authoritative, long-form content ranks best. Expand deeply on every single topic found in the Sniper Competitor Intel.
       2. UNIQUENESS: Every paragraph must be highly distinct and completely tailored to the specific target city. Do not output generic boilerplate. Google will penalize us for duplicate content if this is not deeply unique.
-      3. FORMATTING: Use deep, pure HTML formatting. DO NOT USE MARKDOWN. Use precise HTML tags (<p>, <h2>, <h3>, <ul>, <li>, <strong>) for readability. Do not wrap the HTML in markdown codeblocks.
+      3. FORMATTING: Use deep, pure HTML formatting. DO NOT USE MARKDOWN. Use precise HTML tags (<p>, <h2>, <h3>, <ul>, <li>, <strong>) for readability. Do not wrap the HTML in markdown codeblocks. Ensure every <h2> has at least 3 sprawling paragraphs beneath it.
       4. VOICE: Professional, authoritative, and aggressively focused on B2B revenue. 
       5. CTAS: Seamlessly integrate internal calls-to-action urging readers to "Shop Niche Marketplace" or "Request Custom Data".
       6. KEYWORDS: Naturally weave in the exact Long-Tail Keywords provided by the SEO Bot. Do not keyword stuff.
+      7. NEGATIVE CONSTRAINTS: DO NOT use generic, cliché AI filler words. ABSOLUTELY BANNED WORDS: "bustling", "lush greenery", "In today's fast-paced world", "delve", "moreover", "testament", "vibrant", "look no further", "tapestry". Be ruthless, direct, and sound like a highly-paid B2B consultant, not a cheap travel blogger.
 
       You must return your response STRICTLY as a JSON object matching this structure:
       {
         "title": "A highly clickable, SEO optimized title under 60 characters",
         "slug": "url-friendly-slug-like-this",
         "excerpt": "A high-converting 1-2 sentence meta description summarizing the post.",
-        "content": "The 1500+ character HTML body of the post. Use strict <p>, <h2>, <ul> tags. Absolutely NO markdown."
+        "content": "The 2500+ WORD HTML body of the post. Use strict <p>, <h2>, <ul> tags. Absolutely NO markdown."
       }
     `;
   }
@@ -69,16 +70,18 @@ export class BlogBot {
     const userPrompt = `
       Target City: ${targetCity}
       
-      Execute this SEO Brief perfectly:
+      Execute this SEO Brief perfectly while aggressively analyzing the competitor intelligence:
       ${seoBrief}
 
-      Return standard JSON. Ensure 'content' is deeply formatted HTML over 1,500 characters. DO NOT use markdown.
+      Return standard JSON. Ensure 'content' is deeply formatted HTML that exceeds 2,500 words conceptually. DO NOT use markdown.
     `;
 
     try {
       const response = await openai.chat.completions.create({
         model: "gpt-4o",
         response_format: { type: "json_object" },
+        max_tokens: 4000,
+        temperature: 0.7,
         messages: [
           { role: "system", content: this.systemPrompt },
           { role: "user", content: userPrompt }
@@ -88,9 +91,9 @@ export class BlogBot {
       const rawJson = response.choices[0].message.content || "{}";
       const blogData = JSON.parse(rawJson);
 
-      // Validate Character Count (Enforcing the 1,500 char rule rigorously)
-      if (!blogData.content || blogData.content.length < 1500) {
-        throw new Error(`AI generated a thin post (${blogData.content?.length || 0} chars). Aborted insertion.`);
+      // Validate Character Count (Enforcing a massive actual length, approx 500+ words minimum fail-safe)
+      if (!blogData.content || blogData.content.length < 5000) {
+        throw new Error(`AI got lazy and generated a thin post (${blogData.content?.length || 0} chars). Aborted insertion.`);
       }
 
       // 💾 LIVE DATABASE INSERTION 💾
