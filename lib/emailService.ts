@@ -90,7 +90,7 @@ export async function sendLeadPurchaseConfirmation({
 
   try {
     const result = await resendObject.emails.send({
-      from: \`Lead Monster <\${resendFrom}>\`,
+      from: `Lead Monster <${resendFrom}>`,
       to,
       subject,
       html

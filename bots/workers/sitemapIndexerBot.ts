@@ -15,13 +15,11 @@ export class SitemapIndexerBot {
       // Need to replace escaped newlines inside the private key so the crypto module can read it
       const privateKey = process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n');
       
-      this.jwtClient = new google.auth.JWT(
-        process.env.GOOGLE_CLIENT_EMAIL,
-        undefined,
-        privateKey,
-        ['https://www.googleapis.com/auth/indexing'],
-        undefined
-      );
+      this.jwtClient = new google.auth.JWT({
+        email: process.env.GOOGLE_CLIENT_EMAIL,
+        key: privateKey,
+        scopes: ['https://www.googleapis.com/auth/indexing']
+      });
       this.isConfigured = true;
     }
   }
@@ -34,7 +32,7 @@ export class SitemapIndexerBot {
     if (urls.length === 0) return;
 
     if (!this.isConfigured) {
-      await sendBotMessage("Indexer Bot", this.industry, "WARNING", `Failed to index ${urls.length} pages. Google Search Console API keys are missing in .env.local!`);
+      await sendBotMessage("Indexer Bot", this.industry, "ALERT", `Failed to index ${urls.length} pages. Google Search Console API keys are missing in .env.local!`);
       return;
     }
 

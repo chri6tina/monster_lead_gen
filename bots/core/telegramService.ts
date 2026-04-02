@@ -57,6 +57,13 @@ export async function sendBotMessage(
   try {
     await bot.telegram.sendMessage(adminChatId, msg, { parse_mode: 'Markdown' });
   } catch (error: any) {
-    console.error(`Failed to push message from ${botName}:`, error.message);
+    console.error(`Failed to push message from ${botName} with Markdown:`, error.message);
+    try {
+      // Auto-fallback: If the LLM generates broken markdown formatting, send as plain text 
+      // rather than failing completely so the business owner still gets the alert.
+      await bot.telegram.sendMessage(adminChatId, msg);
+    } catch (fallbackError: any) {
+      console.error(`Fallback push also failed for ${botName}:`, fallbackError.message);
+    }
   }
 }
