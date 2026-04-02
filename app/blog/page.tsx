@@ -14,8 +14,11 @@ export const metadata: Metadata = {
 // Force live reads from the Supabase database to ensure instantaneous updates when the bot army pushes new reports.
 export const dynamic = 'force-dynamic';
 
+import { unstable_noStore as noStore } from 'next/cache';
+
 // This function attempts to fetch from Supabase first, falling back to local JSON files
 async function getBlogIndex() {
+  noStore(); // Completely bypass internal Next.js fetch caching
   const blogs = [];
 
   // 1. Try Supabase
