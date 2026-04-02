@@ -8,11 +8,10 @@ dotenv.config({ path: path.resolve(process.cwd(), '.env.local') });
 
 const aiKey = process.env.OPENAI_API_KEY;
 if (!aiKey) {
-  console.error("🔴 Missing OPENAI_API_KEY inside .env.local");
-  process.exit(1);
+  console.warn("🔴 Missing OPENAI_API_KEY inside .env.local");
 }
 
-const openai = new OpenAI({ apiKey: aiKey });
+const openai = new OpenAI({ apiKey: aiKey || "MISSING" });
 
 /**
  * Tier 3: The City Pages Bot (The Localizer) 🏙️

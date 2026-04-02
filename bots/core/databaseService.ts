@@ -9,12 +9,15 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
 if (!supabaseUrl || !supabaseServiceKey) {
-  console.error("🔴 Missing Supabase credentials in .env.local. Database Service offline.");
-  process.exit(1);
+  console.warn("🔴 Missing Supabase credentials in .env.local. Database Service offline.");
 }
 
-// We use the SERVICE_ROLE_KEY because these are server-side backend bots that need permission to bypass RLS and WRITE to the database.
-export const botDb = createClient(supabaseUrl, supabaseServiceKey);
+// Ensure it doesn't crash if keys are missing during build phase
+export const botDb = (supabaseUrl && supabaseUrl.startsWith('http') && supabaseServiceKey)
+  ? createClient(supabaseUrl, supabaseServiceKey)
+  : {
+      from: () => ({ insert: () => ({ error: 'Database Offline' }), upsert: () => ({ error: 'Database Offline' }) })
+    } as any;
 
 /**
  * Inserts a fully generated Blog Post into the Supabase database.
