@@ -40,7 +40,8 @@ export async function generateMetadata({ params }: { params: Promise<{ niche: st
   };
 }
 
-export const revalidate = 86400; // Force ISR: Required to scale 40,000+ localized pages without choking the database
+// Force ISR: Cache this page to prevent Supabase bottlenecking, but invalidate every 60 seconds for fresh AI data
+export const revalidate = 60; 
 
 // Server Component for dynamic routes in Next.js App Router (App router uses `params` as a Promise in Next.js 15+)
 // Note: Depending on Next.js exact version, params is either a promise (Next.js 15+) or an object (Next.js 14-). Since we're using latest app router (Next.js 15+ convention), let's await it.

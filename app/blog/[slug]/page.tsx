@@ -55,7 +55,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   };
 }
 
-export const revalidate = 86400; // Force ISR: Extremely important for caching heavy dynamic paths
+export const revalidate = 60; // Force ISR: Cache this page to prevent Supabase bottlenecking, but invalidate every 60 seconds for fresh AI data
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params;
