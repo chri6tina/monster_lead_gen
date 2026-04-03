@@ -27,6 +27,11 @@ export async function sendBotMessage(
 ) {
   if (!adminChatId) return;
 
+  // Filter out redundant noise: Only send ALERTS or summarize REPORTS, unless it's the Orchestrator's initial boot message
+  if (status === 'LEARNING' || status === 'ACTION') {
+    if (botName !== 'Orchestrator Node') return;
+  }
+
   // Formatting emojis based on status
   const statusEmoji = {
     'LEARNING': '🧠',
