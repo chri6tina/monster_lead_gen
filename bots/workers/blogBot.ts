@@ -1,5 +1,4 @@
 import OpenAI from 'openai';
-import { sendBotMessage } from '../core/telegramService';
 import { pushBlogToProduction } from '../core/databaseService';
 import dotenv from 'dotenv';
 import path from 'path';
@@ -57,12 +56,6 @@ export class BlogBot {
   async generateAndPublishPost(seoBrief: string, targetCity: string, currentDailyCount: number, dailyLimit: number) {
     // 🛑 Throttling Check: Prevent spam indexation algorithms from catching us
     if (currentDailyCount >= dailyLimit) {
-      await sendBotMessage(
-        this.botName,
-        this.industryName,
-        'ALERT',
-        `⚠️ Daily publishing limit reached (${currentDailyCount}/${dailyLimit}).`
-      );
       return null;
     }
 
@@ -105,20 +98,10 @@ export class BlogBot {
         targetCity: targetCity
       });
 
-      // User requested minimal, clean telegram alerts for worker bots. Just the link!
-      await sendBotMessage(
-        this.botName, 
-        this.industryName, 
-        'REPORT', 
-        `✅ Blog Generated & Pushed to Live Database!\n\n🔗 *Review URL:* [monsterleadgen.com/blog/${blogData.slug}](https://www.monsterleadgen.com/blog/${blogData.slug})`, 
-        { "Length": blogData.content.length }
-      );
-
       return blogData.slug;
 
     } catch (err: any) {
-      // Alerts are "extremely important" so we still push them to Telegram
-      await sendBotMessage(this.botName, this.industryName, 'ALERT', `Failed to generate or publish Blog Post: ${err.message}`);
+      throw new Error(`Blog publish failed (${targetCity}): ${err.message}`);
     }
   }
 }

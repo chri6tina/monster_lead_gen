@@ -1,5 +1,4 @@
 import { google } from 'googleapis';
-import { sendBotMessage } from '../core/telegramService';
 
 /**
  * Sitemap Indexer Bot (The Publisher)
@@ -28,50 +27,49 @@ export class SitemapIndexerBot {
    * Send an array of full absolute URLs to Google Indexing API
    * Type must be 'URL_UPDATED' or 'URL_DELETED'
    */
-  async indexUrls(urls: string[]) {
-    if (urls.length === 0) return;
+  /**
+   * Pings Google Indexing API for each URL. Does not send Telegram — caller aggregates into the daily digest.
+   */
+  async indexUrls(urls: string[]): Promise<{ ok: boolean; indexed: number; error?: string }> {
+    if (urls.length === 0) {
+      return { ok: true, indexed: 0 };
+    }
 
     if (!this.isConfigured) {
-      await sendBotMessage("Indexer Bot", this.industry, "ALERT", `Failed to index ${urls.length} pages. Google Search Console API keys are missing in .env.local!`);
-      return;
+      return {
+        ok: false,
+        indexed: 0,
+        error: `Google Indexing API not configured (${urls.length} URL(s) not submitted). Add GOOGLE_CLIENT_EMAIL and GOOGLE_PRIVATE_KEY to .env.local.`,
+      };
     }
 
     try {
-      // Authenticate with Google First
       await this.jwtClient.authorize();
       const indexing = google.indexing({ version: 'v3', auth: this.jwtClient });
 
       let successCount = 0;
 
-      // Loop through and ping Google for every single new page
       for (const url of urls) {
         console.log(`[Google Indexer] Pinging Google for: ${url}`);
-        
+
         await indexing.urlNotifications.publish({
           requestBody: {
             url: url,
-            type: 'URL_UPDATED' // Tells Google 'We just built this, index it now!'
-          }
+            type: 'URL_UPDATED',
+          },
         });
-        
+
         successCount++;
       }
 
-      await sendBotMessage(
-        "Indexer Bot",
-        this.industry,
-        "REPORT",
-        `✅ Successfully pushed ${successCount} new pages directly to Google Search Console Indexing API.`
-      );
-
+      return { ok: true, indexed: successCount };
     } catch (error: any) {
       console.error('[Indexer Bot Error]', error);
-      await sendBotMessage(
-        "Indexer Bot",
-        this.industry,
-        "ALERT",
-        `🛑 Google Indexing API Failed: ${error.message || 'Unknown Error'}`
-      );
+      return {
+        ok: false,
+        indexed: 0,
+        error: error?.message || 'Unknown Google Indexing API error',
+      };
     }
   }
 }

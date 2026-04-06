@@ -1,5 +1,4 @@
 import OpenAI from 'openai';
-import { sendBotMessage } from '../core/telegramService';
 import { pushCityPageToProduction } from '../core/databaseService';
 import dotenv from 'dotenv';
 import path from 'path';
@@ -72,7 +71,6 @@ export class CityPagesBot {
   async generateAndPublishCity(targetCityName: string, targetCitySlug: string, currentDailyCount: number, dailyLimit: number) {
     // 🛑 Throttling Check
     if (currentDailyCount >= dailyLimit) {
-      await sendBotMessage(this.botName, this.industryName, 'ALERT', `⚠️ City limit reached (${currentDailyCount}/${dailyLimit}). Halting to protect domain.`);
       return null;
     }
 
@@ -103,19 +101,10 @@ export class CityPagesBot {
         ...cityData
       });
 
-      // Silenced Bot Notification per User Rules
-      await sendBotMessage(
-        this.botName, 
-        this.industryName, 
-        'REPORT', 
-        `✅ City Page Generated & Pushed to Live Database!\n\nReview URL: https://www.monsterleadgen.com/${this.nicheSlug}/${targetCitySlug}`, 
-        { "Content Depth": "Heavy", "FAQs Count": cityData.faqs.length }
-      );
-
       return true;
 
     } catch (err: any) {
-      await sendBotMessage(this.botName, this.industryName, 'ALERT', `Failed to generate or publish City Page: ${err.message}`);
+      throw new Error(`City page publish failed (${targetCityName}): ${err.message}`);
     }
   }
 }

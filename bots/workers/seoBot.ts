@@ -1,5 +1,4 @@
 import OpenAI from 'openai';
-import { sendBotMessage } from '../core/telegramService';
 import dotenv from 'dotenv';
 import path from 'path';
 
@@ -61,18 +60,10 @@ export class SEOBot {
       });
 
       const brief = response.choices[0].message.content || "Brief generation failed.";
-
-      await sendBotMessage(
-        this.botName, 
-        this.industryName, 
-        'REPORT', 
-        `✅ SEO Brief Generated for **${seedTopic}** in ${targetCity}.\n_Passed to Blog Bot silently._`
-      );
-
       return brief;
 
     } catch (err: any) {
-      await sendBotMessage(this.botName, this.industryName, 'ALERT', `Failed to generate SEO Brief: ${err.message}`);
+      throw new Error(`SEO Brief failed (${targetCity}): ${err.message}`);
     }
   }
 }

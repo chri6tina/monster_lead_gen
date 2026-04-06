@@ -40,52 +40,83 @@ export class IndustryManagerBot {
   }
 
   /**
-   * Reviews the output of all worker bots in its industry and synthesizes a sector report.
+   * Offline synthesis for tooling / future Overseer sync — does not send Telegram.
    */
   async synthesizeWorkerData(workerData: Record<string, string>) {
-    await sendBotMessage(
-      this.botName,
-      this.industryName,
-      'ACTION',
-      "Scanning recent incoming data from my specialized Worker Bots. Stand by."
-    );
-
     let summary = `Incoming Worker Data for ${this.industryName}:\n\n`;
     for (const [workerType, data] of Object.entries(workerData)) {
       summary += `[Bot: ${workerType} Bot]\nData: ${data}\n\n`;
     }
 
-    summary += "Evaluate these updates. Produce a heavily detailed Sector Summary report detailing our wins, our losses, and strict commands for what the worker bots must do next. It must be highly readable.";
+    summary +=
+      "Evaluate these updates. Produce a heavily detailed Sector Summary report detailing our wins, our losses, and strict commands for what the worker bots must do next. It must be highly readable.";
 
-    try {
-      const response = await openai.chat.completions.create({
-        model: "gpt-4o",
-        messages: [
-          { role: "system", content: this.systemPrompt },
-          { role: "user", content: summary }
-        ]
-      });
+    const response = await openai.chat.completions.create({
+      model: "gpt-4o",
+      messages: [
+        { role: "system", content: this.systemPrompt },
+        { role: "user", content: summary },
+      ],
+    });
 
-      const managerReport = response.choices[0].message.content || "Report generation failed.";
+    return response.choices[0].message.content || "Report generation failed.";
+  }
 
-      await sendBotMessage(
-        this.botName, 
-        this.industryName, 
-        'REPORT', 
-        managerReport, 
-        {
-          "Sub-Bots Analyzed": Object.keys(workerData).length,
-          "Sector Status": "Synthesized",
-          "Overseer Upload": "Pending Sync"
-        }
-      );
+  /**
+   * Single Telegram update per cron run: REPORT when the run is clean, ALERT when anything failed.
+   */
+  async sendDailyRunReport(opts: {
+    nicheSlug: string;
+    throttleUsed: number;
+    throttleLimit: number;
+    stoppedForCap: boolean;
+    published: { city: string; cityUrl: string; blogUrl?: string }[];
+    errors: { where: string; detail: string }[];
+    indexer: { ok: boolean; indexed?: number; error?: string };
+  }) {
+    const indexerFailed = !opts.indexer.ok;
+    const hasProblems = opts.errors.length > 0 || indexerFailed;
+    const status = hasProblems ? "ALERT" : "REPORT";
 
-      // In the real flow, it would save this to the database here for the Overseer to read later
-      return managerReport;
-
-    } catch (err: any) {
-      await sendBotMessage(this.botName, this.industryName, 'ALERT', `Failed to generate sector report: ${err.message}`);
+    let msg = "";
+    if (!hasProblems) {
+      msg = "✅ *Nightly content run completed successfully.*\n\n";
+    } else if (opts.published.length === 0) {
+      msg = "🛑 *Nightly content run failed or produced nothing.*\n\n";
+    } else {
+      msg = "⚠️ *Nightly content run finished with issues.*\n\n";
     }
+
+    msg += `*Published (steps):* ${opts.throttleUsed}/${opts.throttleLimit}`;
+    if (opts.stoppedForCap) msg += " _(stopped at daily cap)_";
+    msg += "\n\n";
+
+    if (opts.published.length > 0) {
+      msg += "*URLs:*\n";
+      for (const p of opts.published) {
+        msg += `• *${p.city}*\n  ${p.cityUrl}\n`;
+        if (p.blogUrl) msg += `  Blog: ${p.blogUrl}\n`;
+      }
+      msg += "\n";
+    }
+
+    if (opts.errors.length > 0) {
+      msg += "*Problems:*\n";
+      for (const e of opts.errors) {
+        msg += `• *${e.where}:* ${e.detail}\n`;
+      }
+      msg += "\n";
+    }
+
+    if (indexerFailed) {
+      msg += `*Indexer:* ❌ ${opts.indexer.error || "Failed"}\n`;
+    } else {
+      msg += `*Indexer:* ✅ ${opts.indexer.indexed ?? 0} URL(s) submitted to Google\n`;
+    }
+
+    await sendBotMessage(this.botName, this.industryName, status as "REPORT" | "ALERT", msg, {
+      Niche: opts.nicheSlug,
+    });
   }
 }
 

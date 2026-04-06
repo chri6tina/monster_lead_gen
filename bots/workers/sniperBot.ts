@@ -1,4 +1,3 @@
-import { sendBotMessage } from '../core/telegramService';
 import dotenv from 'dotenv';
 import path from 'path';
 
@@ -97,14 +96,6 @@ export class SniperBot {
           console.warn(`[${this.botName}] Failed to breach target URL: ${comp.link}`);
         }
       }
-
-      // Step 4: Report Recon Completion
-      await sendBotMessage(
-        this.botName, 
-        this.industryName, 
-        'ACTION', 
-        `🎯 Recon Complete. Ripped HTML structure from ${topCompetitors.length} top Google competitors for "${keyword}". Passing intelligence payload to Blog Bot.`
-      );
 
       return combinedIntel;
 
