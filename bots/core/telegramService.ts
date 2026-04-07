@@ -27,9 +27,11 @@ export async function sendBotMessage(
 ) {
   if (!adminChatId) return;
 
-  // Filter out redundant noise: Only send ALERTS or summarize REPORTS, unless it's the Orchestrator's initial boot message
+  // Filter out redundant noise: Only send ALERTS or summarize REPORTS. ACTION is reserved for a few high-signal bots.
   if (status === 'LEARNING' || status === 'ACTION') {
-    if (botName !== 'Orchestrator Node') return;
+    const actionAllowed =
+      botName === 'Orchestrator Node' || botName === 'Checkout Node';
+    if (!actionAllowed) return;
   }
 
   // Formatting emojis based on status
