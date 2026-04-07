@@ -32,7 +32,7 @@ export function PricingSection({
   const PRICE_DOMINATION = "79";
 
   return (
-    <section id="pricing" className="py-32 bg-[#0a0a0a] relative scroll-mt-20 border-t border-white/5">
+    <section id="pricing" className="py-32 bg-[#0a0a0a] relative scroll-mt-14 md:scroll-mt-20 border-t border-white/5">
       <div className="container mx-auto px-6 relative z-10 max-w-6xl">
         <div className="text-center mb-16 lg:mb-24">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 uppercase tracking-tight">{headingHtml}</h2>
@@ -110,7 +110,7 @@ export function PricingSection({
                 cityName={cityName}
                 nicheName={formattedNiche}
                 ctaText="Initialize"
-                buttonClassName="w-full px-4 py-3 rounded-xl border border-white/10 bg-transparent hover:bg-white/5 text-white font-semibold text-sm transition-colors flex items-center justify-center gap-2"
+                buttonClassName="w-full px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl border border-white/10 bg-transparent hover:bg-white/5 text-white font-semibold text-xs sm:text-sm transition-colors flex items-center justify-center gap-1.5 sm:gap-2"
               />
             </div>
             
@@ -130,7 +130,7 @@ export function PricingSection({
                   cityName={cityName}
                   nicheName={formattedNiche}
                   ctaText="Initialize"
-                  buttonClassName="w-full px-4 py-3 rounded-xl bg-white hover:bg-neutral-200 text-black font-semibold text-sm transition-colors flex items-center justify-center gap-2"
+                  buttonClassName="w-full px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl bg-white hover:bg-neutral-200 text-black font-semibold text-xs sm:text-sm transition-colors flex items-center justify-center gap-1.5 sm:gap-2"
                 />
               </div>
             </div>
@@ -148,7 +148,7 @@ export function PricingSection({
                 cityName={cityName}
                 nicheName={formattedNiche}
                 ctaText="Initialize"
-                buttonClassName="w-full px-4 py-3 rounded-xl border border-white/10 bg-transparent hover:bg-white/5 text-white font-semibold text-sm transition-colors flex items-center justify-center gap-2"
+                buttonClassName="w-full px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl border border-white/10 bg-transparent hover:bg-white/5 text-white font-semibold text-xs sm:text-sm transition-colors flex items-center justify-center gap-1.5 sm:gap-2"
               />
             </div>
 
@@ -246,7 +246,7 @@ function PricingCard({
         <div className="absolute top-0 inset-x-0 h-1 bg-emerald-500"></div>
       )}
       
-      <div className="p-8 flex-1 flex flex-col">
+      <div className="p-5 sm:p-8 flex-1 flex flex-col">
         {isPopular && <span className="text-emerald-500 text-[10px] font-bold uppercase tracking-widest mb-4 block">Enterprise Standard</span>}
         
         <h3 className="text-lg font-semibold text-white mb-2">
@@ -255,7 +255,7 @@ function PricingCard({
         
         <div className="mb-6 flex items-start gap-1">
           <span className="text-xl font-bold text-neutral-500 mt-1">$</span>
-          <span className="text-5xl font-bold text-white tracking-tighter">{parsedPrice}</span>
+          <span className="text-4xl sm:text-5xl font-bold text-white tracking-tighter">{parsedPrice}</span>
         </div>
         
         <div className="mb-8 p-3 rounded-lg bg-white/5 border border-white/5">
@@ -284,7 +284,7 @@ function PricingCard({
             cityName={cityName}
             nicheName={formattedNiche}
             ctaText={ctaText}
-            buttonClassName={`w-full px-6 py-4 rounded-xl font-semibold transition-colors flex items-center justify-center gap-2 text-sm ${isPopular ? 'bg-white hover:bg-neutral-200 text-black' : 'bg-transparent border border-white/10 text-white hover:bg-white/5'}`}
+            buttonClassName={`w-full px-4 py-3 sm:px-6 sm:py-4 rounded-lg sm:rounded-xl font-semibold transition-colors flex items-center justify-center gap-1.5 sm:gap-2 text-xs sm:text-sm ${isPopular ? 'bg-white hover:bg-neutral-200 text-black' : 'bg-transparent border border-white/10 text-white hover:bg-white/5'}`}
           />
         </div>
       </div>

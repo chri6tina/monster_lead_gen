@@ -97,24 +97,28 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   const ctaLink = data.linkedUrl || derivedLink;
 
   return (
-    <div className="min-h-screen bg-zinc-950 font-sans text-zinc-50 flex flex-col pt-20 selection:bg-emerald-500/30">
+    <div className="min-h-screen bg-zinc-950 font-sans text-zinc-50 flex flex-col pt-14 md:pt-16 lg:pt-20 selection:bg-emerald-500/30">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       {/* Navbar Drop-in */}
       <nav className="fixed top-0 left-0 right-0 z-50 w-full border-b border-zinc-800 bg-zinc-950/80 backdrop-blur-md">
-        <div className="container mx-auto px-6 h-20 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 rounded-[10px] overflow-hidden border border-emerald-500/30 flex items-center justify-center bg-zinc-900 shadow-[0_0_10px_rgba(16,185,129,0.2)] group-hover:border-emerald-500/60 transition-all">
+        <div className="container mx-auto px-4 sm:px-6 h-14 md:h-16 lg:h-20 flex items-center justify-between min-w-0 gap-2">
+          <Link href="/" className="flex items-center gap-2 sm:gap-3 group min-w-0">
+            <div className="w-8 h-8 md:w-9 md:h-9 lg:w-10 lg:h-10 rounded-[10px] overflow-hidden border border-emerald-500/30 flex items-center justify-center bg-zinc-900 shadow-[0_0_10px_rgba(16,185,129,0.2)] group-hover:border-emerald-500/60 transition-all shrink-0">
               <Image src="/mascot.png" alt="Lead Monster" width={48} height={48} className="object-cover scale-150 group-hover:scale-[1.6] transition-transform" />
             </div>
-            <span className="text-xl font-black tracking-tighter uppercase text-white hidden sm:block">
+            <span className="text-sm md:text-base lg:text-xl font-black tracking-tighter uppercase text-white hidden sm:block truncate">
               Lead<span className="text-emerald-500">Monster</span>
             </span>
           </Link>
-          <div className="flex items-center gap-8 text-sm font-bold text-zinc-400">
-            <Link href="/blog" className="flex items-center gap-2 hover:text-emerald-400 transition-colors uppercase tracking-widest"><ChevronLeft className="w-4 h-4"/> Back to Index</Link>
+          <div className="flex items-center shrink-0">
+            <Link href="/blog" aria-label="Back to blog index" className="flex items-center gap-1.5 sm:gap-2 hover:text-emerald-400 transition-colors text-[11px] sm:text-sm font-bold text-zinc-400 uppercase tracking-wide sm:tracking-widest">
+              <ChevronLeft className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" aria-hidden />
+              <span className="sm:hidden">Index</span>
+              <span className="hidden sm:inline">Back to Index</span>
+            </Link>
           </div>
         </div>
       </nav>

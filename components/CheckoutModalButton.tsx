@@ -38,7 +38,7 @@ export function CheckoutModalButton({
         onClick={() => setIsOpen(true)}
         className={buttonClassName}
       >
-        {ctaText} <ChevronRight className="h-5 w-5 shrink-0" />
+        {ctaText} <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5 shrink-0" />
       </button>
 
       {isOpen && (

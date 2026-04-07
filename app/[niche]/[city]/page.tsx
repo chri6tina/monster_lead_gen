@@ -132,15 +132,15 @@ export default async function CityPage({ params }: { params: Promise<{ niche: st
   const landscapeParagraph2 = agentData?.landscapeParagraph2 || `By leveraging our verified lead database, you bypass the traditional, slow inbound marketing strategies. We give you the exact names, numbers, and emails of the people holding the checkbook in ${cityName}.`;
 
   return (
-    <div className="min-h-screen bg-zinc-950 font-sans text-zinc-50 flex flex-col pt-20 selection:bg-emerald-500/30">
+    <div className="min-h-screen bg-zinc-950 font-sans text-zinc-50 flex flex-col pt-14 md:pt-16 lg:pt-20 selection:bg-emerald-500/30">
       {/* Navbar - Sticky at top */}
       <nav className="fixed top-0 left-0 right-0 z-50 w-full border-b border-zinc-800 bg-zinc-950/80 backdrop-blur-md">
-        <div className="container mx-auto px-6 h-20 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 rounded-[10px] overflow-hidden border border-emerald-500/30 flex items-center justify-center bg-zinc-900 shadow-[0_0_10px_rgba(16,185,129,0.2)] group-hover:shadow-[0_0_15px_rgba(16,185,129,0.5)] group-hover:border-emerald-500/60 transition-all">
+        <div className="container mx-auto px-4 sm:px-6 h-14 md:h-16 lg:h-20 flex items-center justify-between min-w-0 gap-2">
+          <Link href="/" className="flex items-center gap-2 sm:gap-3 group min-w-0">
+            <div className="w-8 h-8 md:w-9 md:h-9 lg:w-10 lg:h-10 rounded-[10px] overflow-hidden border border-emerald-500/30 flex items-center justify-center bg-zinc-900 shadow-[0_0_10px_rgba(16,185,129,0.2)] group-hover:shadow-[0_0_15px_rgba(16,185,129,0.5)] group-hover:border-emerald-500/60 transition-all shrink-0">
               <Image src="/mascot.png" alt="Lead Monster" width={48} height={48} className="object-cover scale-150 group-hover:scale-[1.6] transition-transform" />
             </div>
-            <span className="text-xl font-black tracking-tighter uppercase text-white group-hover:opacity-90 transition-opacity">
+            <span className="text-sm md:text-base lg:text-xl font-black tracking-tighter uppercase text-white group-hover:opacity-90 transition-opacity truncate">
               Lead<span className="text-emerald-500">Monster</span>
             </span>
           </Link>
@@ -148,12 +148,17 @@ export default async function CityPage({ params }: { params: Promise<{ niche: st
             <Link href="/" className="hover:text-emerald-400 transition-colors uppercase tracking-wide">Back to Home</Link>
             <Link href="#pricing" className="hover:text-emerald-400 transition-colors uppercase tracking-wide">View Packages</Link>
           </div>
-          <div className="flex items-center">
+          <div className="flex items-center shrink-0">
             <Link 
               href="#pricing" 
-              className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-zinc-950 px-6 py-2.5 rounded-full font-black transition-all shadow-[0_0_15px_rgba(16,185,129,0.4)] hover:shadow-[0_0_25px_rgba(16,185,129,0.6)] flex items-center gap-2 uppercase text-sm tracking-wide"
+              title={`Shop ${cityName}`}
+              className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-zinc-950 px-3 py-2 sm:px-5 sm:py-2.5 rounded-full font-black transition-all shadow-[0_0_15px_rgba(16,185,129,0.4)] hover:shadow-[0_0_25px_rgba(16,185,129,0.6)] flex items-center gap-1.5 sm:gap-2 uppercase text-[11px] sm:text-sm tracking-wide max-w-[min(100%,11rem)] sm:max-w-none"
             >
-              Shop {cityName} <ShoppingCart className="h-4 w-4" />
+              <span className="truncate sm:whitespace-normal">
+                <span className="sm:hidden">Shop</span>
+                <span className="hidden sm:inline">Shop {cityName}</span>
+              </span>
+              <ShoppingCart className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0" />
             </Link>
           </div>
         </div>
@@ -161,7 +166,7 @@ export default async function CityPage({ params }: { params: Promise<{ niche: st
 
       <main className="flex-1">
         {/* Hero Section Dynamic */}
-        <section className="relative pt-20 pb-32 overflow-hidden border-b border-zinc-900">
+        <section className="relative pt-16 md:pt-20 pb-32 overflow-hidden border-b border-zinc-900">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-emerald-500/20 rounded-full blur-[140px] opacity-50 pointer-events-none"></div>
           <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-teal-500/20 rounded-full blur-[120px] opacity-40 pointer-events-none translate-x-1/3 -translate-y-1/3"></div>
           

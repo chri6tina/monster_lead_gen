@@ -21,18 +21,18 @@ export const metadata = {
 
 export default function HowItWorksPage() {
   return (
-    <div className="min-h-screen bg-[#0a0a0a] font-sans text-neutral-50 flex flex-col pt-20 selection:bg-emerald-500/30">
+    <div className="min-h-screen bg-[#0a0a0a] font-sans text-neutral-50 flex flex-col pt-14 md:pt-20 selection:bg-emerald-500/30">
       
       {/* Navbar - Inherited from Landing Page */}
       <nav className="fixed top-0 left-0 right-0 z-50 w-full border-b border-white/5 bg-[#0a0a0a]/80 backdrop-blur-xl">
-        <div className="container mx-auto px-6 h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-white/5 border border-white/10 group-hover:border-emerald-500/50 transition-colors">
-              <Ghost className="w-4 h-4 text-emerald-500" strokeWidth={2.5} />
+        <div className="container mx-auto px-4 sm:px-6 h-14 md:h-16 flex items-center justify-between gap-2 min-w-0">
+          <Link href="/" className="flex items-center gap-2 sm:gap-3 group min-w-0">
+            <div className="flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-white/5 border border-white/10 group-hover:border-emerald-500/50 transition-colors shrink-0">
+              <Ghost className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-500" strokeWidth={2.5} />
             </div>
-            <span className="text-lg font-bold tracking-tight text-white flex items-center gap-1.5">
-              LeadMonster
-              <span className="px-1.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 text-[10px] font-bold uppercase tracking-widest border border-emerald-500/20">Enterprise</span>
+            <span className="text-base sm:text-lg font-bold tracking-tight text-white flex items-center gap-1 sm:gap-1.5 min-w-0">
+              <span className="truncate">LeadMonster</span>
+              <span className="hidden sm:inline-flex px-1.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 text-[10px] font-bold uppercase tracking-widest border border-emerald-500/20 shrink-0">Enterprise</span>
             </span>
           </Link>
           <div className="hidden md:flex items-center gap-8 text-sm font-medium text-neutral-400">
@@ -40,12 +40,12 @@ export default function HowItWorksPage() {
             <Link href="/#pricing" className="hover:text-white transition-colors">Pricing</Link>
             <Link href="/#request" className="hover:text-white transition-colors">Custom Data</Link>
           </div>
-          <div className="flex items-center">
+          <div className="flex items-center shrink-0">
             <Link 
               href="/#pricing" 
-              className="bg-white hover:bg-neutral-200 text-black px-5 py-2 rounded-lg font-semibold transition-colors flex items-center gap-2 text-sm"
+              className="bg-white hover:bg-neutral-200 text-black px-3 py-1.5 sm:px-5 sm:py-2 rounded-md sm:rounded-lg font-semibold transition-colors flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm"
             >
-              Get Started <ArrowRight className="w-4 h-4" />
+              Get Started <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
             </Link>
           </div>
         </div>
@@ -208,9 +208,9 @@ export default function HowItWorksPage() {
             <p className="text-neutral-400 mb-10 text-lg">Every minute your sales reps spend manually digging on LinkedIn is a minute they aren't closing. Secure a directory matrix today.</p>
             <Link 
               href="/#pricing" 
-              className="inline-flex items-center gap-2 px-8 py-4 bg-white hover:bg-neutral-200 text-black rounded-xl font-semibold transition-colors shadow-lg shadow-white/10"
+              className="inline-flex items-center gap-2 px-6 py-3 sm:px-8 sm:py-3.5 bg-white hover:bg-neutral-200 text-black rounded-lg sm:rounded-xl text-sm sm:text-base font-semibold transition-colors shadow-lg shadow-white/10"
             >
-              Initialize Purchase <ArrowRight className="w-4 h-4" />
+              Initialize Purchase <ArrowRight className="w-4 h-4 shrink-0" />
             </Link>
           </div>
         </section>

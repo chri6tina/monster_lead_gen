@@ -60,15 +60,15 @@ export default async function NicheHubPage({ params }: { params: Promise<{ niche
   const formattedNiche = rawNiche.split(' ').filter(Boolean).map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
 
   return (
-    <div className="min-h-screen bg-zinc-950 font-sans text-zinc-50 flex flex-col pt-20 selection:bg-emerald-500/30">
+    <div className="min-h-screen bg-zinc-950 font-sans text-zinc-50 flex flex-col pt-14 md:pt-16 lg:pt-20 selection:bg-emerald-500/30">
       {/* Navbar Minimal */}
       <nav className="fixed top-0 left-0 right-0 z-50 w-full border-b border-zinc-800 bg-zinc-950/80 backdrop-blur-md">
-        <div className="container mx-auto px-6 h-20 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 rounded-[10px] overflow-hidden border border-emerald-500/30 flex items-center justify-center bg-zinc-900 shadow-[0_0_10px_rgba(16,185,129,0.2)] group-hover:shadow-[0_0_15px_rgba(16,185,129,0.5)] transition-all">
+        <div className="container mx-auto px-4 sm:px-6 h-14 md:h-16 lg:h-20 flex items-center justify-between min-w-0 gap-2">
+          <Link href="/" className="flex items-center gap-2 sm:gap-3 group min-w-0">
+            <div className="w-8 h-8 md:w-9 md:h-9 lg:w-10 lg:h-10 rounded-[10px] overflow-hidden border border-emerald-500/30 flex items-center justify-center bg-zinc-900 shadow-[0_0_10px_rgba(16,185,129,0.2)] group-hover:shadow-[0_0_15px_rgba(16,185,129,0.5)] transition-all shrink-0">
               <Image src="/mascot.png" alt="Lead Monster" width={48} height={48} className="object-cover scale-150 group-hover:scale-[1.6] transition-transform" />
             </div>
-            <span className="text-xl font-black tracking-tighter uppercase text-white group-hover:opacity-90 transition-opacity">
+            <span className="text-sm md:text-base lg:text-xl font-black tracking-tighter uppercase text-white group-hover:opacity-90 transition-opacity truncate">
               Lead<span className="text-emerald-500">Monster</span>
             </span>
           </Link>
